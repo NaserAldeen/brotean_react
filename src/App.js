@@ -1,9 +1,15 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { Switch, Route } from "react-router-dom";
+import RegistationForm from "./components/RegistrationForm";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div>
+      <Switch>
+        <Route path="/(login|register)" component={RegistationForm} />
+      </Switch>
+    </div>
+  );
 }
 
 export default App;
