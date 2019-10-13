@@ -3,7 +3,9 @@ import { GET_PRODUCT } from "./actionTypes";
 export const getProduct = id => {
   return async dispatch => {
     try {
-      const res = await axios.get(`http://localhost:8000/api/detail/${id}/`);
+      const res = await axios.get(
+        `https://5965cbed.ngrok.io/api/detail/${id}/`
+      );
       const currentProduct = res.data;
 
       dispatch({

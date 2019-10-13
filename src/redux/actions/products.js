@@ -3,7 +3,7 @@ import { GET_PRODUCTS } from "./actionTypes";
 export const getProducts = () => {
   return async dispatch => {
     try {
-      const res = await axios.get("http://localhost:8000/api/list/");
+      const res = await axios.get("https://5965cbed.ngrok.io/api/list/");
       const products = res.data;
 
       dispatch({
