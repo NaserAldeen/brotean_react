@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
@@ -17,11 +16,11 @@ class App extends Component {
           <Route path="/products/:prodID" component={ProductDetail} />
           <Route path="/products/" component={ProductList} />
           <Route path="/(login|register)" component={RegistationForm} />
-          
         </Switch>
       </div>
     );
   }
+}
 /*
 const mapDispatchToProps = dispatch => {
   return {
@@ -39,4 +38,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App);*/
-export default App
+export default App;
