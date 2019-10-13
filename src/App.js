@@ -1,22 +1,28 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import ProductList from "./components/ProductList";
+import ProductDetail from "./components/ProductDetail";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import RegistationForm from "./components/RegistrationForm";
-import { connect } from "react-redux";
-import { logout } from "./redux/actions";
-function App(props) {
-  if (props.user) {
-    console.log(props.user);
-    return <button onClick={props.logout}>Logout</button>;
-  }
-  return (
-    <div>
-      <Switch>
-        <Route path="/(login|register)" component={RegistationForm} />
-      </Switch>
-    </div>
-  );
-}
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Navbar />
 
+        <Switch>
+          <Redirect exact from="/" to="/products" />
+          <Route path="/products/:prodID" component={ProductDetail} />
+          <Route path="/products/" component={ProductList} />
+          <Route path="/(login|register)" component={RegistationForm} />
+          
+        </Switch>
+      </div>
+    );
+  }
+/*
 const mapDispatchToProps = dispatch => {
   return {
     logout: () => dispatch(logout())
@@ -25,10 +31,12 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     user: state.rootAuth
-    // errors: state.errors.response
+    
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(App);*/
+export default App
