@@ -30,7 +30,14 @@ export default class ProductItem extends Component {
             <h3 class="title">
               <a href="#">{this.props.product.name}</a>
             </h3>
-            <div class="price">{this.props.product.price}KD</div>
+            <div class="price">{this.props.product.price}KWD</div>
+            <div
+              className={
+                this.props.product.quantity > 0 ? "text-muted" : "text-danger"
+              }
+            >
+              {this.props.product.quantity > 0 ? "In stock" : "SOLD OUT"}
+            </div>
           </div>
         </div>
       </div>
