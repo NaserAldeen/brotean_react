@@ -12,7 +12,7 @@ export default class ProductItem extends Component {
       <div class="col-md-3 col-sm-6">
         <div class="product-grid3">
           <div class="product-image3">
-            <Link to={`${this.props.product.id}`}>
+            <Link to={`products/${this.props.product.id}`}>
               <a onClick={() => this.handlePress()}>
                 <img class="pic-1" src={this.props.product.image} />
                 <img class="pic-2" src={this.props.product.image} />
