@@ -41,7 +41,6 @@ class RegistationForm extends Component {
   //   };
 
   render() {
-    console.log(this.props.user);
     if (this.props.user) return <Redirect to="/" />;
     const type = this.props.match.url.substring(1);
     return (

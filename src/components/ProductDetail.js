@@ -16,6 +16,7 @@ class ProductDetail extends Component {
             <img
               className="mt-5"
               src={this.props.currentProduct.image}
+              alt=""
               style={{ width: "340px", height: "400px" }}
             />
           </div>
@@ -32,7 +33,9 @@ class ProductDetail extends Component {
               Price: <strong>{this.props.currentProduct.price}KWD</strong>
             </h5>
             <p>
-              <button class="btn btn-5 btn-5a icon-cart">Add to cart</button>
+              <button className="btn btn-5 btn-5a icon-cart">
+                Add to cart
+              </button>
             </p>
           </div>
         </div>

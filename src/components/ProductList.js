@@ -4,14 +4,13 @@ import { connect } from "react-redux";
 class ProductList extends Component {
   render() {
     let products;
-    console.log(this.props.products);
     if (this.props.products)
-      products = this.props.products.map(prod => (
-        <ProductItem product={prod} />
+      products = this.props.products.map((prod, idx) => (
+        <ProductItem key={idx} product={prod} />
       ));
     return (
       <div className="container mt-5">
-        <div class="row">{products}</div>
+        <div className="row">{products}</div>
       </div>
     );
   }
