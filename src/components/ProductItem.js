@@ -9,26 +9,24 @@ export default class ProductItem extends Component {
   handlePress(e) {}
   render() {
     return (
-      <div class="col-md-3 col-sm-6">
-        <div class="product-grid3">
-          <div class="product-image3">
+      <div className="col-md-3 col-sm-6">
+        <div className="product-grid3">
+          <div className="product-image3">
             <Link to={`products/${this.props.product.id}`}>
-              <a onClick={() => this.handlePress()}>
-                <img class="pic-1" src={this.props.product.image} />
-                <img class="pic-2" src={this.props.product.image} />
-              </a>
+              <span onClick={() => this.handlePress()}>
+                <img className="pic-1" alt="" src={this.props.product.image} />
+                <img className="pic-2" alt="" src={this.props.product.image} />
+              </span>
             </Link>
-            <ul class="social">
+            <ul className="social">
               <li>
-                <a href="#">
-                  <FontAwesomeIcon icon={faCartArrowDown} />
-                </a>
+                <FontAwesomeIcon icon={faCartArrowDown} />
               </li>
             </ul>
           </div>
           <div class="product-content">
             <h3 class="title">
-              <a href="#">{this.props.product.name}</a>
+              {this.props.product.name}
             </h3>
             <div class="price">{this.props.product.price}KWD</div>
             <div
