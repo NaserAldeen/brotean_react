@@ -24,9 +24,18 @@ export default class ProductItem extends Component {
               </li>
             </ul>
           </div>
-          <div className="product-content">
-            <h3 className="title">{this.props.product.name}</h3>
-            <div className="price">{this.props.product.price}KD</div>
+          <div class="product-content">
+            <h3 class="title">
+              {this.props.product.name}
+            </h3>
+            <div class="price">{this.props.product.price}KWD</div>
+            <div
+              className={
+                this.props.product.quantity > 0 ? "text-muted" : "text-danger"
+              }
+            >
+              {this.props.product.quantity > 0 ? "In stock" : "SOLD OUT"}
+            </div>
           </div>
         </div>
       </div>

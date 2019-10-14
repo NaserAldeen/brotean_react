@@ -9,8 +9,11 @@ class ProductList extends Component {
         <ProductItem key={idx} product={prod} />
       ));
     return (
-      <div className="container mt-5">
-        <div className="row">{products}</div>
+      <div
+        className="container mt-5"
+        style={{ fontFamily: "Ubuntu, sans-serif" }}
+      >
+        <div class="row">{products}</div>
       </div>
     );
   }
