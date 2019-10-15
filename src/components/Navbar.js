@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import CartNavBar from "./CartNavBar";
+export default class Navbar extends Component {
 import { connect } from "react-redux";
 import { logout } from "../redux/actions";
 
@@ -80,6 +82,7 @@ class Navbar extends Component {
               >
                 Search
               </button>
+              <CartNavBar />
             </form>
           </div>
         </nav>

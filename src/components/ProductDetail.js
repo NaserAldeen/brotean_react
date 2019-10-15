@@ -2,12 +2,36 @@ import React, { Component } from "react";
 import { getProduct } from "../redux/actions";
 import { connect } from "react-redux";
 import QuantitySpinner from "./QuantitySpinner";
+import { addItemToCart } from "../redux/actions";
 class ProductDetail extends Component {
+  state = {
+    canAddToCart: true
+  };
   componentDidMount() {
     this.props.getProduct(this.props.match.params.prodID);
   }
   componentWillUnmount() {
     this.props.resetProduct();
+  }
+
+  handleAddToCartClick(e) {
+    if (this.props.spinnerCount > this.props.currentProduct.quantity) {
+      this.setState({ canAddToCart: false });
+    } else if (this.props.spinnerCount <= 0) {
+      this.setState({ canAddToCart: false });
+    } else {
+      alert("added to cart!");
+      this.setState({ canAddToCart: true });
+      this.props.addItemToCart(
+        this.props.match.params.prodID,
+        this.props.spinnerCount
+      );
+    }
+  }
+  renderErrorsAfterClickingOnAddToCart() {
+    if (!this.state.canAddToCart) {
+      return "Not enough items in stock";
+    }
   }
   render() {
     return (
@@ -29,11 +53,20 @@ class ProductDetail extends Component {
             </div>
             <div className="row">
               <p>
-                <button class="btn btn-5 btn-5a icon-cart">Add to cart</button>
+                <button
+                  className="btn btn-5 btn-5a icon-cart"
+                  onClick={e => this.handleAddToCartClick()}
+                >
+                  Add to cart
+                </button>
+                <br />
+                <span className="text-danger">
+                  {this.renderErrorsAfterClickingOnAddToCart()}
+                </span>
               </p>
             </div>
             <div className="row">
-              <QuantitySpinner />
+              <QuantitySpinner max={this.props.currentProduct.quantity} />
             </div>
           </div>
           <div className="col-6 ml-4">
@@ -55,14 +88,17 @@ class ProductDetail extends Component {
 }
 const mapStateToProps = state => {
   return {
-    currentProduct: state.rootProduct.currentProduct
+    currentProduct: state.rootProduct.currentProduct,
+    spinnerCount: state.UI.spinnerCount
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     //Syntax
     getProduct: id => dispatch(getProduct(id)),
-    resetProduct: () => dispatch({ type: "RESET_PRODUCT" })
+    resetProduct: () => dispatch({ type: "RESET_PRODUCT" }),
+    addItemToCart: (product_id, quantity) =>
+      dispatch(addItemToCart(product_id, quantity))
   };
 };
 export default connect(
