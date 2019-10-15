@@ -3,11 +3,15 @@ import { combineReducers } from "redux";
 import authReducer from "./authReducer";
 import productsReducer from "./products";
 import productReducer from "./product";
+import cartReducer from "./cart";
+import UIComponents from "./UIComponents";
 const rootReducer = combineReducers({
   //the following two lines are an example
   rootAuth: authReducer,
   rootProducts: productsReducer,
-  rootProduct: productReducer
+  rootProduct: productReducer,
+  rootCart: cartReducer,
+  UI: UIComponents
 });
 
 export default rootReducer;
