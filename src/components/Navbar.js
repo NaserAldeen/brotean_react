@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CartNavBar from "./CartNavBar";
-export default class Navbar extends Component {
+import { connect } from "react-redux";
+import { logout } from "../redux/actions";
+
+class Navbar extends Component {
   render() {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link to="/">
-            <a className="navbar-brand" href="#">
-              Brotean
-            </a>
+            <span className="navbar-brand">Brotean</span>
           </Link>
-          <button
+          {/* <button
             className="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -21,55 +22,51 @@ export default class Navbar extends Component {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
-          </button>
+          </button> */}
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="#">
-                  Home <span className="sr-only">(current)</span>
-                </a>
+                <Link to="/">
+                  <span className="nav-link">
+                    Home <span className="sr-only">(current)</span>
+                  </span>
+                </Link>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Link
-                </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </div>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link disabled"
-                  href="#"
-                  tabindex="-1"
-                  aria-disabled="true"
-                >
-                  Disabled
-                </a>
-              </li>
+              {!this.props.user ? (
+                <li className="nav-item">
+                  <Link to="/login">
+                    <span className="nav-link">Login</span>
+                  </Link>
+                </li>
+              ) : (
+                <li className="nav-item dropdown">
+                  <span
+                    className="nav-link active dropdown-toggle pointer"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    {this.props.user.username}
+                  </span>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <span className="dropdown-item pointer">Profile</span>
+                    <span className="dropdown-item pointer">Order History</span>
+                    <div className="dropdown-divider pointer"></div>
+                    <span
+                      className="dropdown-item pointer"
+                      onClick={() => this.props.logout()}
+                    >
+                      Logout
+                    </span>
+                  </div>
+                </li>
+              )}
             </ul>
             <form className="form-inline my-2 my-lg-0">
               <input
@@ -92,3 +89,20 @@ export default class Navbar extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.rootAuth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Navbar);
