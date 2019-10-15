@@ -20,7 +20,6 @@ class ProductDetail extends Component {
     } else if (this.props.spinnerCount <= 0) {
       this.setState({ canAddToCart: false });
     } else {
-      alert("added to cart!");
       this.setState({ canAddToCart: true });
       this.props.addItemToCart(
         this.props.match.params.prodID,
