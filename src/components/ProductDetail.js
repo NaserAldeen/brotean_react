@@ -41,6 +41,7 @@ class ProductDetail extends Component {
             <div className="row">
               <img
                 className="mt-5"
+                alt=""
                 src={this.props.currentProduct.image}
                 style={{ width: "340px", height: "400px" }}
               />

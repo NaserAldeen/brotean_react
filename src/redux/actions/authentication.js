@@ -28,7 +28,7 @@ export const authorization = (userData, type, history) => {
       );
       const user = res.data;
 
-      if (type == "login") dispatch(setCurrentUser(user.access));
+      if (type === "login") dispatch(setCurrentUser(user.access));
       else {
         dispatch(authorization(userData, "login", history));
       }
@@ -46,11 +46,9 @@ export const logout = () => setCurrentUser();
 const setCurrentUser = token => {
   return async dispatch => {
     let user;
-    console.log("khelpsdf", token);
     if (token) {
       localStorage.setItem("token", token);
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      console.log(token);
       user = jwt_decode(token);
     } else {
       localStorage.removeItem("token");
