@@ -4,7 +4,9 @@ class QuantitySpinner extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
     this.props.setSpinnerValue(e.target.value);
-    console.log(e.target.value);
+  }
+  componentWillUnmount() {
+    this.props.setSpinnerValue(1);
   }
   render() {
     return (

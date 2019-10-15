@@ -4,23 +4,33 @@ import { connect } from "react-redux";
 import QuantitySpinner from "./QuantitySpinner";
 import { addItemToCart } from "../redux/actions";
 class ProductDetail extends Component {
+  state = {
+    canAddToCart: true
+  };
   componentDidMount() {
     this.props.getProduct(this.props.match.params.prodID);
   }
   componentWillUnmount() {
     this.props.resetProduct();
   }
+
   handleAddToCartClick(e) {
-    this.props.addItemToCart(
-      this.props.match.params.prodID,
-      this.props.spinnerCount
-    );
+    if (this.props.spinnerCount > this.props.currentProduct.quantity) {
+      this.setState({ canAddToCart: false });
+    } else if (this.props.spinnerCount <= 0) {
+      this.setState({ canAddToCart: false });
+    } else {
+      alert("added to cart!");
+      this.setState({ canAddToCart: true });
+      this.props.addItemToCart(
+        this.props.match.params.prodID,
+        this.props.spinnerCount
+      );
+    }
   }
   renderErrorsAfterClickingOnAddToCart() {
-    if (this.props.spinnerCount > this.props.currentProduct.quantity) {
+    if (!this.state.canAddToCart) {
       return "Not enough items in stock";
-    } else if (this.props.spinnerCount <= 0) {
-      return "Enter a valid number motherfucker";
     }
   }
   render() {
