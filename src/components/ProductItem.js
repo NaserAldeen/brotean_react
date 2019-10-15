@@ -20,14 +20,14 @@ export default class ProductItem extends Component {
             </Link>
             <ul className="social">
               <li>
-                <FontAwesomeIcon icon={faCartArrowDown} />
+                <a href="#">
+                  <FontAwesomeIcon icon={faCartArrowDown} />
+                </a>
               </li>
             </ul>
           </div>
           <div class="product-content">
-            <h3 class="title">
-              {this.props.product.name}
-            </h3>
+            <h3 class="title">{this.props.product.name}</h3>
             <div class="price">{this.props.product.price}KWD</div>
             <div
               className={
