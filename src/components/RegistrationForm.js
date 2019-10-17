@@ -2,7 +2,138 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { authorization } from "../redux/actions";
-// import { setErrors } from "../redux/actions";
+
+//Implement errors n shit
+
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBModalFooter,
+  MDBIcon,
+  MDBCardHeader,
+  MDBBtn,
+  MDBInput
+} from "mdbreact";
+
+class RegistationForm extends Component {
+  state = {
+    username: "",
+    password: ""
+  };
+
+  changeHandler = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitHandler = e => {
+    e.preventDefault();
+    this.props.authorization(
+      this.state,
+      this.props.match.url.substring(1),
+      this.props.history
+    );
+  };
+  render() {
+    const type = this.props.match.url.substring(1);
+    return (
+      <MDBContainer className="mt-5">
+        <MDBRow className="mx-auto">
+          <MDBCol md="6" className="mx-auto">
+            <MDBCard className="mx-auto">
+              <MDBCardBody>
+                <MDBCardHeader
+                  className="form-header deep-blue-gradient rounded text-center mb-5"
+                  style={{
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+                  }}
+                >
+                  <h3 className="my-3">
+                    <MDBIcon icon="lock" />{" "}
+                    {type === "login" ? "Login" : "Register"}
+                  </h3>
+                </MDBCardHeader>
+                <form onSubmit={this.submitHandler}>
+                  <div className="grey-text">
+                    <MDBInput
+                      label="Type your username"
+                      icon="user"
+                      group
+                      type="username"
+                      error="wrong"
+                      success="right"
+                      name="username"
+                      className="mb-5"
+                      onChange={this.changeHandler}
+                    />
+                    <MDBInput
+                      label="Type your password"
+                      icon="lock"
+                      group
+                      type="password"
+                      validate
+                      name="password"
+                      onChange={this.changeHandler}
+                    />
+                  </div>
+
+                  <div className="text-center mt-4">
+                    <MDBBtn
+                      color="light-blue"
+                      className="mb-3"
+                      type="submit"
+                      style={{
+                        boxShadow:
+                          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+                      }}
+                    >
+                      {type === "login" ? "Login" : "Register"}
+                    </MDBBtn>
+                  </div>
+                </form>
+                <MDBModalFooter>
+                  <div className="font-weight-light">
+                    <Link
+                      to={type === "login" ? "/register" : "/login"}
+                      className="btn btn-small btn-link"
+                    >
+                      {type === "login"
+                        ? "register an account"
+                        : "login with an existing account"}
+                    </Link>
+                  </div>
+                </MDBModalFooter>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    user: state.rootAuth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    authorization: (userData, type, history) =>
+      dispatch(authorization(userData, type, history))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegistationForm);
+
+/*
 
 class RegistationForm extends Component {
   state = {
@@ -23,22 +154,6 @@ class RegistationForm extends Component {
     );
   };
 
-  //   errorHandler = () => {
-  //     if (this.props.errors && this.props.match.url.substring(1) === "login") {
-  //       return (
-  //         <p style={{ color: "red" }}>
-  //           {this.props.errors.data.non_field_errors[0]}
-  //         </p>
-  //       );
-  //     } else if (
-  //       this.props.errors &&
-  //       this.props.match.url.substring(1) === "register"
-  //     ) {
-  //       return (
-  //         <p style={{ color: "red" }}>{this.props.errors.data.username[0]}</p>
-  //       );
-  //     }
-  //   };
 
   render() {
     const type = this.props.match.url.substring(1);
@@ -53,9 +168,7 @@ class RegistationForm extends Component {
           <form onSubmit={this.submitHandler}>
             <div className="form-group">
               <input
-                // className={
-                //   this.props.errors ? "form-control is-invalid" : "form-control"
-                // }
+        
                 type="text"
                 placeholder="Username"
                 name="username"
@@ -64,16 +177,14 @@ class RegistationForm extends Component {
             </div>
             <div className="form-group">
               <input
-                // className={
-                //   this.props.errors ? "form-control is-invalid" : "form-control"
-                // }
+             
                 type="password"
                 placeholder="Password"
                 name="password"
                 onChange={this.changeHandler}
               />
             </div>
-            {/* {this.errorHandler()} */}
+
             <input
               className="btn btn-primary"
               type="submit"
@@ -85,7 +196,7 @@ class RegistationForm extends Component {
           <Link
             to={type === "login" ? "/register" : "/login"}
             className="btn btn-small btn-link"
-            // onClick={() => this.props.resetErrors({})}
+      
           >
             {type === "login"
               ? "register an account"
@@ -100,7 +211,7 @@ class RegistationForm extends Component {
 const mapStateToProps = state => {
   return {
     user: state.rootAuth
-    // errors: state.errors.response
+  
   };
 };
 
@@ -108,7 +219,7 @@ const mapDispatchToProps = dispatch => {
   return {
     authorization: (userData, type, history) =>
       dispatch(authorization(userData, type, history))
-    // resetErrors: errors => dispatch(setErrors(errors))
+
   };
 };
 
@@ -116,3 +227,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(RegistationForm);
+*/
