@@ -1,30 +1,55 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addItemToCart } from "../redux/actions";
 
-export default class NavCartItem extends Component {
+class NavCartItem extends Component {
   render() {
-    console.log(this.props.product);
     return (
-      <li>
-        <span class="item">
-          <span class="item-left">
+      <li class="list-group-item">
+        <div className="row">
+          <div className="col-3">
             <img
               src={this.props.product.image}
               alt=""
               style={{ width: "50px", height: "50px" }}
             />
-            <span class="item-info">
-              <span>{this.props.product.name}</span>
-              <span>
-                {this.props.quantity} x {this.props.product.price} KWD ={" "}
-                {this.props.quantity * this.props.product.price} KWD
-              </span>
-            </span>
-          </span>
-          <span class="item-right">
-            <button class="btn btn-sm btn-danger float-xs-right">x</button>
-          </span>
-        </span>
+          </div>
+          <div className="col-6">
+            <div className="row">
+              <div className="col">{this.props.product.item}</div>
+            </div>
+            <div className="row">
+              <div className="col">
+                {this.props.product.quantity} x {this.props.product.price} KWD ={" "}
+                {this.props.product.quantity * this.props.product.price} KWD
+              </div>
+            </div>
+          </div>
+          <div className="col-2">
+            <button
+              type="button"
+              className="btn btn-sm btn-danger float-xs-right"
+              onClick={e => {
+                this.props.addItemToCart(this.props.product.product_id, 0);
+              }}
+            >
+              x
+            </button>
+          </div>
+        </div>
       </li>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addItemToCart: (product_id, quantity) =>
+      dispatch(addItemToCart(product_id, quantity))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(NavCartItem);

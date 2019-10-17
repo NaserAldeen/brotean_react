@@ -1,3 +1,6 @@
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
@@ -10,6 +13,8 @@ import { Provider } from "react-redux";
 import { getProducts } from "./redux/actions";
 // import your redux/index.js here (the store)
 import store from "./redux";
+import "mdbreact/dist/css/mdb.css";
+
 store.dispatch(getProducts());
 ReactDOM.render(
   <Provider store={store}>

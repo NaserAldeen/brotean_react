@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faShoppingBag,
-  faCartArrowDown
-} from "@fortawesome/free-solid-svg-icons";
+import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-export default class ProductItem extends Component {
+import { connect } from "react-redux";
+import { addItemToCart } from "../redux/actions";
+import { showAlert } from "../redux/actions/alerts";
+
+//Add more stuff to the product cart (maybe manufacturer)
+
+class ProductItem extends Component {
   handlePress(e) {}
   render() {
     return (
-      <div className="col-md-3 col-sm-6">
+      <div className="col-md-3 col-sm-6 mb-4">
         <div className="product-grid3">
           <div className="product-image3">
             <Link to={`products/${this.props.product.id}`}>
@@ -19,16 +22,27 @@ export default class ProductItem extends Component {
               </span>
             </Link>
             <ul className="social">
-              <li>
+              <li
+                onClick={() => {
+                  if (!this.props.user) {
+                    this.props.alert("Login to add items to your cart");
+                    return;
+                  }
+                  this.props.addItemToCart(this.props.product.id, 1);
+                  this.props.alert(
+                    `Added ${this.props.product.name} to your cart!`
+                  );
+                }}
+              >
                 <a href="#">
                   <FontAwesomeIcon icon={faCartArrowDown} />
                 </a>
               </li>
             </ul>
           </div>
-          <div class="product-content">
-            <h3 class="title">{this.props.product.name}</h3>
-            <div class="price">{this.props.product.price}KWD</div>
+          <div className="product-content">
+            <h3 className="title">{this.props.product.name}</h3>
+            <div className="price">{this.props.product.price}KWD</div>
             <div
               className={
                 this.props.product.quantity > 0 ? "text-muted" : "text-danger"
@@ -42,3 +56,19 @@ export default class ProductItem extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    user: state.rootAuth
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    addItemToCart: (product_id, quantity) =>
+      dispatch(addItemToCart(product_id, quantity)),
+    alert: content => dispatch(showAlert(content))
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductItem);

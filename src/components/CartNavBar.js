@@ -1,37 +1,53 @@
 import React, { Component } from "react";
 import NavCartItem from "./NavCartItem";
 import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import $ from "jquery";
+
 class CartNavBar extends Component {
+  componentDidMount() {
+    $(".dropdown-menu").click(function(e) {
+      e.preventDefault();
+    });
+  }
   render() {
-    const cartItems = this.props.cart.map(cartItem => {
-      let product = this.props.products.find(prod => prod.id == cartItem.item);
-      return <NavCartItem product={product} quantity={cartItem.quantity} />;
+    if (!this.props.cart[0]) return null;
+    const cartItems = this.props.cart[0].map((cartItem, idx) => {
+      return <NavCartItem product={cartItem} key={idx} />;
     });
     return (
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a
-            href="#"
-            class="dropdown-toggle"
+      <ul className="nav navbar-nav navbar-right">
+        <li className="dropdown">
+          <button
+            type="button"
+            className="btn btn-secondary dropdown-toggle"
             data-toggle="dropdown"
-            role="button"
+            aria-haspopup="true"
             aria-expanded="false"
           >
-            <span class="glyphicon glyphicon-shopping-cart"></span>{" "}
-            {this.props.cart.length} - Items
-            <span class="caret"></span>
-          </a>
+            <FontAwesomeIcon icon={faShoppingBag} />{" "}
+            {cartItems ? this.props.cart[0].length : null}
+            <span className="caret"></span>
+          </button>
           <ul
-            class="dropdown-menu-right dropdown-menu dropdown-cart"
+            className="dropdown-menu-right dropdown-menu dropdown-cart"
             role="menu"
           >
             {cartItems}
-            <li class="dropdown-divider"></li>
-            <li className="text-center">
-              <a class="text-center" href="">
-                View Cart
-              </a>
-            </li>
+            <li className="dropdown-divider"></li>
+            <div className="row ml-3 justify-content-between">
+              <div className="col">Total: {this.props.cart[1]}KD</div>
+              <div className="col justify-content-right">
+                {" "}
+                <button type="button" className="btn btn-success btn-sm ml-4 ">
+                  Checkout
+                </button>
+                <button type="button" className="btn btn-danger btn-sm ml-2">
+                  Empty Cart
+                </button>
+              </div>
+            </div>
           </ul>
         </li>
       </ul>
@@ -44,13 +60,5 @@ const mapStateToProps = state => {
     products: state.rootProducts.products
   };
 };
-//   const mapDispatchToProps = dispatch => {
-//     return {
-//       //Syntax
-//       getProduct: id => dispatch(getProduct(id)),
-//       resetProduct: () => dispatch({ type: "RESET_PRODUCT" }),
-//       addItemToCart: (product_id, quantity) =>
-//         dispatch(addItemToCart(product_id, quantity))
-//     };
-//   };
+
 export default connect(mapStateToProps)(CartNavBar);

@@ -11,12 +11,12 @@ class QuantitySpinner extends Component {
   render() {
     return (
       <div
-        class="input-group "
+        className="input-group "
         style={{ width: "70px", marginLeft: "120px", marginBottom: "50px" }}
       >
         <p>Quantity </p>
         <input
-          class="text-center form-control"
+          className="text-center form-control"
           type="number"
           name="number"
           value={this.props.number}

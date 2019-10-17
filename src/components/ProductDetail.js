@@ -3,6 +3,10 @@ import { getProduct } from "../redux/actions";
 import { connect } from "react-redux";
 import QuantitySpinner from "./QuantitySpinner";
 import { addItemToCart } from "../redux/actions";
+import { showAlert } from "../redux/actions/alerts";
+
+//Add stock quantity and category
+
 class ProductDetail extends Component {
   state = {
     canAddToCart: true
@@ -15,6 +19,10 @@ class ProductDetail extends Component {
   }
 
   handleAddToCartClick(e) {
+    if (!this.props.user) {
+      this.props.showAlert("Login to add items to your cart");
+      return;
+    }
     if (this.props.spinnerCount > this.props.currentProduct.quantity) {
       this.setState({ canAddToCart: false });
     } else if (this.props.spinnerCount <= 0) {
@@ -25,6 +33,7 @@ class ProductDetail extends Component {
         this.props.match.params.prodID,
         this.props.spinnerCount
       );
+      this.props.showAlert("Added item successfully!");
     }
   }
   renderErrorsAfterClickingOnAddToCart() {
@@ -53,8 +62,8 @@ class ProductDetail extends Component {
             <div className="row">
               <p>
                 <button
-                  className="btn btn-5 btn-5a icon-cart"
-                  onClick={e => this.handleAddToCartClick()}
+                  className="btnAdd btn-5 btn-5a icon-cart"
+                  onClick={e => this.handleAddToCartClick(e)}
                 >
                   Add to cart
                 </button>
@@ -88,7 +97,8 @@ class ProductDetail extends Component {
 const mapStateToProps = state => {
   return {
     currentProduct: state.rootProduct.currentProduct,
-    spinnerCount: state.UI.spinnerCount
+    spinnerCount: state.UI.spinnerCount,
+    user: state.rootAuth
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -97,7 +107,8 @@ const mapDispatchToProps = dispatch => {
     getProduct: id => dispatch(getProduct(id)),
     resetProduct: () => dispatch({ type: "RESET_PRODUCT" }),
     addItemToCart: (product_id, quantity) =>
-      dispatch(addItemToCart(product_id, quantity))
+      dispatch(addItemToCart(product_id, quantity)),
+    showAlert: content => dispatch(showAlert(content))
   };
 };
 export default connect(

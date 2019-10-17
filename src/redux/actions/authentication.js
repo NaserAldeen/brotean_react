@@ -1,8 +1,8 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import { SET_CURRENT_USER } from "./actionTypes";
-
+import { SET_CURRENT_USER, GET_CART } from "./actionTypes";
+import { getCart } from "./cart";
 // import { setErrors } from "./errors";
 
 export const checkForExpiredToken = () => {
@@ -16,6 +16,7 @@ export const checkForExpiredToken = () => {
       return setCurrentUser(token);
     }
   }
+
   return logout();
 };
 
@@ -50,10 +51,12 @@ const setCurrentUser = token => {
       localStorage.setItem("token", token);
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       user = jwt_decode(token);
+      dispatch(getCart());
     } else {
       localStorage.removeItem("token");
       delete axios.defaults.headers.common.Authorization;
       user = null;
+      dispatch({ type: GET_CART, payload: [] });
     }
     dispatch({
       type: SET_CURRENT_USER,

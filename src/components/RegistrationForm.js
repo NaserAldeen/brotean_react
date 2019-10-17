@@ -41,10 +41,9 @@ class RegistationForm extends Component {
   //   };
 
   render() {
-    if (this.props.user) return <Redirect to="/" />;
     const type = this.props.match.url.substring(1);
     return (
-      <div className="card col-6 mx-auto p-0 mt-5">
+      <div className="card col-6 mx-auto p-0 mt-5 text-center">
         <div className="card-body">
           <h5 className="card-title mb-4">
             {type === "login"
