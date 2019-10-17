@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { authorization } from "../redux/actions";
 // import { setErrors } from "../redux/actions";
@@ -99,7 +99,7 @@ class RegistationForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.rootAuth
+    user: state.rootAuth.user
     // errors: state.errors.response
   };
 };

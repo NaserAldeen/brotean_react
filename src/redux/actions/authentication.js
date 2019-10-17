@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import { SET_CURRENT_USER, GET_CART } from "./actionTypes";
+import { SET_CURRENT_USER, GET_CART, GET_USER_PROFILE } from "./actionTypes";
 import { getCart } from "./cart";
 // import { setErrors } from "./errors";
 
@@ -29,11 +29,11 @@ export const authorization = (userData, type, history) => {
       );
       const user = res.data;
 
-      if (type === "login") dispatch(setCurrentUser(user.access));
-      else {
+      if (type === "login") {
+        dispatch(setCurrentUser(user.access));
+      } else {
         dispatch(authorization(userData, "login", history));
       }
-
       history.replace("/");
     } catch (errors) {
       // console.error(errors.response.data);
@@ -52,6 +52,7 @@ const setCurrentUser = token => {
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       user = jwt_decode(token);
       dispatch(getCart());
+      dispatch(getProfile());
     } else {
       localStorage.removeItem("token");
       delete axios.defaults.headers.common.Authorization;
@@ -62,5 +63,17 @@ const setCurrentUser = token => {
       type: SET_CURRENT_USER,
       payload: user
     });
+  };
+};
+
+const getProfile = () => {
+  return async dispatch => {
+    try {
+      const res = await axios.get(`http://127.0.0.1:8000/api/profile/`);
+      const userProfile = res.data;
+      dispatch({ type: GET_USER_PROFILE, payload: userProfile });
+    } catch (errors) {
+      // console.error(errors.response.data);
+    }
   };
 };

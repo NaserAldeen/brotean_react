@@ -11,6 +11,7 @@ import { showAlert } from "../redux/actions/alerts";
 class ProductItem extends Component {
   handlePress(e) {}
   render() {
+    console.log(this.props.product.image);
     return (
       <div className="col-md-3 col-sm-6 mb-4">
         <div className="product-grid3">
@@ -58,7 +59,7 @@ class ProductItem extends Component {
 }
 const mapStateToProps = state => {
   return {
-    user: state.rootAuth
+    user: state.rootAuth.user
   };
 };
 const mapDispatchToProps = dispatch => {

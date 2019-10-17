@@ -4,3 +4,4 @@ export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const ADD_ITEM_CART = "ADD_ITEM_CART";
 export const SHOW_ALERT = "SHOW_ALERT";
 export const GET_CART = "GET_CART";
+export const GET_USER_PROFILE = "GET_USER_PROFILE";

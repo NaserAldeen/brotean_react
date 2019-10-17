@@ -6,11 +6,10 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_ITEM_CART:
-      if (payload.quantity == 0) {
+      if (payload.quantity === 0) {
         let newCart = state.cart[0].filter(item => {
-          console.log(item.product_id, payload.product_id);
-          if (item.product_id) return item.product_id != payload.item;
-          else if (item.item) return item.item != payload.item;
+          if (item.product_id) return item.product_id !== payload.item;
+          else if (item.item) return item.item !== payload.item;
         });
 
         return {
@@ -19,7 +18,7 @@ export default (state = initialState, { type, payload }) => {
         };
       }
       let existingItem = state.cart[0].find(item => {
-        return item.product_id == payload.product_id;
+        return item.product_id === payload.product_id;
       });
 
       if (existingItem) {
@@ -27,7 +26,6 @@ export default (state = initialState, { type, payload }) => {
         return { ...state, cart: [...state.cart] };
       } else {
         let newCartItems = state.cart[0].concat(payload);
-        console.log(payload, "fds");
         return { ...state, cart: [[...newCartItems], state.cart[1]] };
       }
     case GET_CART:

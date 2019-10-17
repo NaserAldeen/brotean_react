@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import CartNavBar from "./CartNavBar";
 import { connect } from "react-redux";
 import { logout } from "../redux/actions";
 import ShoppingCart from "./ShoppingCart";
@@ -45,8 +44,9 @@ class Navbar extends Component {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
-                    <span className="dropdown-item pointer">Profile</span>
-                    <span className="dropdown-item pointer">Order History</span>
+                    <Link to="/profile">
+                      <span className="dropdown-item pointer">Profile</span>
+                    </Link>
                     <div className="dropdown-divider pointer"></div>
                     <span
                       className="dropdown-item pointer"
@@ -84,7 +84,7 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.rootAuth,
+    user: state.rootAuth.user,
     products: state.rootProducts.products
   };
 };

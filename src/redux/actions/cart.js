@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ADD_ITEM_CART, GET_CART } from "./actionTypes";
-import { array } from "prop-types";
+
 export const addItemToCart = (product_id, quantity) => {
   return async dispatch => {
     try {
@@ -13,13 +13,12 @@ export const addItemToCart = (product_id, quantity) => {
         data
       );
       const cartItem = res.data;
-      console.log(cartItem);
       dispatch({
         type: ADD_ITEM_CART,
         payload: quantity ? cartItem : data
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 };
@@ -28,7 +27,7 @@ export const getCart = () => {
     try {
       const res = await axios.get(`http://127.0.0.1:8000/api/get_cart/`);
       const cart = res.data;
-
+      console.log(cart);
       dispatch({
         type: GET_CART,
         payload: [cart[0].cart_items, cart[0].total]

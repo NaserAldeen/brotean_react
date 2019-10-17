@@ -31,7 +31,6 @@ class ShoppingCart extends Component {
     const cartItems = this.props.cart[0].map((cartItem, idx) => {
       return <NavCartItem product={cartItem} key={idx} />;
     });
-    console.log(cartItems);
     return (
       <>
         {/* BUTTON */}
