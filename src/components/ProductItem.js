@@ -8,8 +8,13 @@ import { showAlert } from "../redux/actions/alerts";
 
 //Add more stuff to the product cart (maybe manufacturer)
 
+/**
+ * Functional Component
+ */
 class ProductItem extends Component {
-  handlePress(e) {}
+  handlePress(e) {
+    /* What do I do? :D */
+  }
   render() {
     return (
       <div className="col-md-3 col-sm-6 mb-4">
@@ -24,6 +29,10 @@ class ProductItem extends Component {
             <ul className="social">
               <li
                 onClick={() => {
+                  /**
+                   * This function is big.
+                   * Pull it out and define it elsewhere.
+                   */
                   if (!this.props.user) {
                     this.props.alert("Login to add items to your cart");
                     return;
@@ -56,11 +65,13 @@ class ProductItem extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     user: state.rootAuth
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     addItemToCart: (product_id, quantity) =>
@@ -68,6 +79,7 @@ const mapDispatchToProps = dispatch => {
     alert: content => dispatch(showAlert(content))
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

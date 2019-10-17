@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 class QuantitySpinner extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -20,7 +21,10 @@ class QuantitySpinner extends Component {
           type="number"
           name="number"
           value={this.props.number}
-          onChange={e => this.handleChange(e)}
+          onChange={
+            /* you can avoid this if you start consistently defining methods as arrow function */
+            e => this.handleChange(e)
+          }
         />
       </div>
     );

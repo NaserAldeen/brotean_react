@@ -12,6 +12,11 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk))
 );
 
+/**
+ * Put your early dispatches in one place.
+ * Either move this dispatch to `src/index.js`
+ * or move the dispatches from there to here.
+ */
 store.dispatch(checkForExpiredToken());
 
 export default store;

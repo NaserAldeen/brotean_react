@@ -1,4 +1,8 @@
+/**
+ * Is this redundant?
+ */
 import { SHOW_ALERT } from "../actions/actionTypes";
+
 const initialState = {
   alert: ""
 };

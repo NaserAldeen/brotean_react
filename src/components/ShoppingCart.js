@@ -11,6 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import NavCartItem from "./NavCartItem";
 import { addItemToCart } from "../redux/actions";
+
+/**
+ * `useState`
+ */
 class ShoppingCart extends Component {
   state = {
     modal: false
@@ -67,18 +71,21 @@ class ShoppingCart extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     cart: state.rootCart.cart,
     products: state.rootProducts.products
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     addItemToCart: (product_id, quantity) =>
       dispatch(addItemToCart(product_id, quantity))
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -7,10 +7,18 @@ import { showAlert } from "../redux/actions/alerts";
 
 //Add stock quantity and category
 
+/**
+ * Great candidate for `useState` and `useEffect`
+ */
 class ProductDetail extends Component {
   state = {
     canAddToCart: true
   };
+
+  /**
+   * Maybe implement memoized detail fetching?
+   * You could lose a whole reducer by doing it.
+   */
   componentDidMount() {
     this.props.getProduct(this.props.match.params.prodID);
   }
@@ -18,11 +26,19 @@ class ProductDetail extends Component {
     this.props.resetProduct();
   }
 
-  handleAddToCartClick(e) {
+  /**
+   * Define your methods as arrow function
+   * so you don't run into binding issues
+   */
+  handleAddToCartClick = e => {
     if (!this.props.user) {
       this.props.showAlert("Login to add items to your cart");
       return;
     }
+
+    /**
+     * Can be simplified?
+     */
     if (this.props.spinnerCount > this.props.currentProduct.quantity) {
       this.setState({ canAddToCart: false });
     } else if (this.props.spinnerCount <= 0) {
@@ -35,12 +51,14 @@ class ProductDetail extends Component {
       );
       this.props.showAlert("Added item successfully!");
     }
-  }
+  };
+
   renderErrorsAfterClickingOnAddToCart() {
     if (!this.state.canAddToCart) {
       return "Not enough items in stock";
     }
   }
+
   render() {
     return (
       <div className="container mt-5">
@@ -63,7 +81,7 @@ class ProductDetail extends Component {
               <p>
                 <button
                   className="btnAdd btn-5 btn-5a icon-cart"
-                  onClick={e => this.handleAddToCartClick(e)}
+                  onClick={this.handleAddToCartClick}
                 >
                   Add to cart
                 </button>
@@ -82,7 +100,7 @@ class ProductDetail extends Component {
               {this.props.currentProduct.name}
             </h1>
             <p className="mb-4 text-muted">
-              {this.props.currentProduct.manufacturer ? "By: " : null}
+              {this.props.currentProduct.manufacturer && "By: "}
               {this.props.currentProduct.manufacturer}
             </p>
             <p className="text-justify" style={{ lineHeight: "2" }}>

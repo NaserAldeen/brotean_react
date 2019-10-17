@@ -1,9 +1,17 @@
+/**
+ * Clean up and organize your imports.
+ * E.g.:
+ * - Libraries/packages
+ * - Styling
+ * - Components
+ * - Redux
+ */
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./index.css"; // Are you using this? If not, remove it.
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
@@ -15,7 +23,13 @@ import { getProducts } from "./redux/actions";
 import store from "./redux";
 import "mdbreact/dist/css/mdb.css";
 
+/**
+ * Put your early dispatches in one place.
+ * Either move this dispatch to `src/redux/index.js`
+ * or move the dispatches from there to here.
+ */
 store.dispatch(getProducts());
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
