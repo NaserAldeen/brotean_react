@@ -7,6 +7,11 @@ import $ from "jquery";
 
 class CartNavBar extends Component {
   componentDidMount() {
+    /**
+     * DO *NOT* USE JQUERY IN REACT!
+     * If you're too lazy to figure out how to do this in standard react,
+     * then at least use a ref: https://reactjs.org/docs/refs-and-the-dom.html
+     */
     $(".dropdown-menu").click(function(e) {
       e.preventDefault();
     });

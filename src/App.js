@@ -1,3 +1,6 @@
+/**
+ * Clean up imports. Remove "dead" imports
+ */
 import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -13,6 +16,9 @@ import { getCart } from "./redux/actions/cart";
 import { Link } from "react-router-dom";
 import { MDBNotification } from "mdbreact";
 
+/**
+ * This is a great candidate for `useState` and `useEffect`
+ */
 class App extends Component {
   state = {
     showAlertt: false
@@ -22,6 +28,9 @@ class App extends Component {
     if (prevProps.alertMessage.length != this.props.alertMessage.length) {
       this.setState({ showAlertt: true });
       window.setTimeout(
+        /**
+         * Use an arrow function so you don't have to `bind`
+         */
         function() {
           this.setState({ showAlertt: false });
         }.bind(this),
@@ -33,6 +42,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" style={{ fontFamily: "Ubuntu, sans-serif" }}>
+        {/* Maybe move the font loader to `src/index.js`? */}
         <GoogleFontLoader
           fonts={[
             {
@@ -87,7 +97,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     clearAlert: content => dispatch(showAlert(content)),
-    getCart: () => dispatch(getCart())
+    getCart: () => dispatch(getCart()) // Doesn't seem like you're using this
   };
 };
 export default connect(

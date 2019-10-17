@@ -2,10 +2,17 @@ import React, { Component } from "react";
 import ProductItem from "./ProductItem";
 
 import { connect } from "react-redux";
+
+/**
+ * Functional component
+ */
 class ProductList extends Component {
   render() {
     let products;
 
+    /**
+     * You might need some kind of UX feature to indicate that the products are loading
+     */
     if (this.props.products)
       products = this.props.products.map((prod, idx) => (
         <ProductItem key={idx} product={prod} />
@@ -20,9 +27,11 @@ class ProductList extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     products: state.rootProducts.products
   };
 };
+
 export default connect(mapStateToProps)(ProductList);

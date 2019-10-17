@@ -1,9 +1,17 @@
+/**
+ * There's *a lot* of dead code in this file.
+ * Use it or lose it.
+ */
+
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { authorization } from "../redux/actions";
 // import { setErrors } from "../redux/actions";
 
+/**
+ * Good candidate for `useState`
+ */
 class RegistationForm extends Component {
   state = {
     username: "",

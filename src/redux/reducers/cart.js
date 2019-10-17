@@ -1,4 +1,13 @@
 import { ADD_ITEM_CART, GET_CART } from "../actions/actionTypes";
+
+/**
+ * This whole file might be easier to read
+ * if you just split this state into multiple properties
+ * rather than having an array.
+ *
+ * Right now it just reads as a
+ * mysterious (but functioning) mess
+ */
 const initialState = {
   cart: [[], 0]
 };

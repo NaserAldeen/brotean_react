@@ -7,7 +7,7 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_PRODUCT:
       return { ...state, currentProduct: payload };
-    case "RESET_PRODUCT":
+    case "RESET_PRODUCT": // Create a type for this
       return { ...state, currentProduct: [] };
 
     default:

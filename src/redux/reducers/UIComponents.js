@@ -1,4 +1,5 @@
 import { SHOW_ALERT } from "../actions/actionTypes";
+
 const initialState = {
   spinnerCount: 1,
   alert: []
