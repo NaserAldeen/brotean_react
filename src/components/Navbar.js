@@ -71,9 +71,7 @@ class Navbar extends Component {
               >
                 Search
               </button>
-              {this.props.user && this.props.products.length ? (
-                <ShoppingCart />
-              ) : null}
+              {this.props.user ? <ShoppingCart /> : null}
             </form>
           </div>
         </nav>
