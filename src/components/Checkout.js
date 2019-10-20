@@ -118,7 +118,6 @@ class Checkout extends React.Component {
                 style={{ width: "900px" }}
                 onSubmit={e => {
                   this.props.checkout();
-                  alert("fds");
                 }}
               >
                 <ul id="progressbar">
@@ -145,6 +144,7 @@ class Checkout extends React.Component {
                         name="first_name"
                         placeholder="First Name"
                         ref="firstName"
+                        value={this.state.first_name}
                         onChange={e => this.handleChange(e)}
                       />
                     </div>
@@ -297,7 +297,6 @@ class Checkout extends React.Component {
                     className="submit action-button"
                     value="Place order!"
                     disabled={this.state.email.trim() == "" ? true : false}
-                    onClick={() => alert("fds")}
                   />
                 </fieldset>
               </form>
@@ -308,6 +307,11 @@ class Checkout extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    profile: state.rootAuth.userProfile
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
     checkout: () => dispatch(checkout())
@@ -315,6 +319,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Checkout);

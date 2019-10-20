@@ -20,7 +20,6 @@ import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
 import { MDBNotification } from "mdbreact";
 
-
 class App extends Component {
   state = {
     showAlertt: false
@@ -45,7 +44,7 @@ class App extends Component {
           fonts={[
             {
               font: "Ubuntu",
-              weights: [400]
+              weights: [300]
             }
           ]}
         />
