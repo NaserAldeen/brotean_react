@@ -10,12 +10,13 @@ import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { getProducts } from "./redux/actions";
-// import your redux/index.js here (the store)
+import { getProducts, getCategories } from "./redux/actions";
+
 import store from "./redux";
 import "mdbreact/dist/css/mdb.css";
 
 store.dispatch(getProducts());
+store.dispatch(getCategories());
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

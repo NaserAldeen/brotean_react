@@ -1,22 +1,25 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Switch, Route, Redirect, withRouter } from "react-router-dom";
-import GoogleFontLoader from "react-google-font-loader";
-import { MDBNotification } from "mdbreact";
-import $ from "jquery";
-import { Link } from "react-router-dom";
 import "./App.css";
+import GoogleFontLoader from "react-google-font-loader";
 
-// Actions
+import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+//Actions
 import { showAlert } from "./redux/actions/alerts";
 import { getCart } from "./redux/actions/cart";
 
-// Components
+//Components
+import Profile from "./components/Profile";
+import RegistationForm from "./components/RegistrationForm";
+import Checkout from "./components/Checkout";
+import CategoriesList from "./components/CategoriesList";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
-import Profile from "./components/Profile";
-import RegistationForm from "./components/RegistrationForm";
+import { MDBNotification } from "mdbreact";
+
 
 class App extends Component {
   state = {
@@ -46,14 +49,12 @@ class App extends Component {
             }
           ]}
         />
+
         <Navbar />
 
         {this.state.showAlertt && (
           <MDBNotification
             autohide={2000}
-            bodyClassName="p-5 font-weight-bold white-text"
-            className="stylish-color-dark"
-            closeClassName="blue-grey-text"
             fade
             icon="bell"
             iconClassName="blue-grey-text"
@@ -61,7 +62,6 @@ class App extends Component {
               this.props.alertMessage[this.props.alertMessage.length - 1]
             }
             show
-            text="11 mins ago"
             title="Message"
             titleClassName="elegant-color-dark white-text"
             style={{
@@ -72,12 +72,15 @@ class App extends Component {
             }}
           />
         )}
+
         <Switch>
           <Redirect exact from="/" to="/products" />
           <Route path="/profile/" component={Profile} />
           <Route path="/products/:prodID" component={ProductDetail} />
           <Route path="/products/" component={ProductList} />
           <Route path="/(login|register)" component={RegistationForm} />
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/categories" component={CategoriesList} />
         </Switch>
       </div>
     );

@@ -1,6 +1,6 @@
-import { ADD_ITEM_CART, GET_CART } from "../actions/actionTypes";
+import { ADD_ITEM_CART, GET_CART, CHECKOUT } from "../actions/actionTypes";
 const initialState = {
-  cart: [[], 0]
+  cart: [[], 0] //Array of two elemenets, [0] for cart items, [1] for total price (comes from backend)
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -8,13 +8,23 @@ export default (state = initialState, { type, payload }) => {
     case ADD_ITEM_CART:
       if (payload.quantity === 0) {
         let newCart = state.cart[0].filter(item => {
-          if (item.product_id) return item.product_id !== payload.item;
-          else if (item.item) return item.item !== payload.item;
+
+          if (item.product_id) {
+            return item.product_id != payload.item;
+          } else if (item.item) {
+            return item.item != payload.item;
+          }
+        });
+        let newTotal = 0;
+
+        newCart.forEach(item => {
+          newTotal += item.quantity * item.price;
+
         });
 
         return {
           ...state,
-          cart: [[...newCart], state.cart[1]]
+          cart: [[...newCart], newTotal]
         };
       }
       let existingItem = state.cart[0].find(item => {
@@ -22,14 +32,26 @@ export default (state = initialState, { type, payload }) => {
       });
 
       if (existingItem) {
+        state.cart[1] +=
+          existingItem.price * (payload.quantity - existingItem.quantity);
+
         existingItem.quantity = payload.quantity;
         return { ...state, cart: [...state.cart] };
       } else {
         let newCartItems = state.cart[0].concat(payload);
-        return { ...state, cart: [[...newCartItems], state.cart[1]] };
+
+        let newTotal = 0;
+
+        newCartItems.forEach(item => {
+          newTotal += item.quantity * item.price;
+        });
+        return { ...state, cart: [[...newCartItems], newTotal] };
+
       }
     case GET_CART:
       return { ...state, cart: [...payload] };
+    case CHECKOUT:
+      return { ...state, cart: [[], 0] };
     default:
       return state;
   }

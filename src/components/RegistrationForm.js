@@ -2,7 +2,21 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { authorization } from "../redux/actions";
-// import { setErrors } from "../redux/actions";
+
+//Implement errors n shit
+
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBModalFooter,
+  MDBIcon,
+  MDBCardHeader,
+  MDBBtn,
+  MDBInput
+} from "mdbreact";
 
 class RegistationForm extends Component {
   state = {
@@ -22,85 +36,88 @@ class RegistationForm extends Component {
       this.props.history
     );
   };
-
-  //   errorHandler = () => {
-  //     if (this.props.errors && this.props.match.url.substring(1) === "login") {
-  //       return (
-  //         <p style={{ color: "red" }}>
-  //           {this.props.errors.data.non_field_errors[0]}
-  //         </p>
-  //       );
-  //     } else if (
-  //       this.props.errors &&
-  //       this.props.match.url.substring(1) === "register"
-  //     ) {
-  //       return (
-  //         <p style={{ color: "red" }}>{this.props.errors.data.username[0]}</p>
-  //       );
-  //     }
-  //   };
-
   render() {
     const type = this.props.match.url.substring(1);
     return (
-      <div className="card col-6 mx-auto p-0 mt-5 text-center">
-        <div className="card-body">
-          <h5 className="card-title mb-4">
-            {type === "login"
-              ? "Login to send messages"
-              : "Register an account"}
-          </h5>
-          <form onSubmit={this.submitHandler}>
-            <div className="form-group">
-              <input
-                // className={
-                //   this.props.errors ? "form-control is-invalid" : "form-control"
-                // }
-                type="text"
-                placeholder="Username"
-                name="username"
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                // className={
-                //   this.props.errors ? "form-control is-invalid" : "form-control"
-                // }
-                type="password"
-                placeholder="Password"
-                name="password"
-                onChange={this.changeHandler}
-              />
-            </div>
-            {/* {this.errorHandler()} */}
-            <input
-              className="btn btn-primary"
-              type="submit"
-              value={type.replace(/^\w/, c => c.toUpperCase())}
-            />
-          </form>
-        </div>
-        <div className="card-footer">
-          <Link
-            to={type === "login" ? "/register" : "/login"}
-            className="btn btn-small btn-link"
-            // onClick={() => this.props.resetErrors({})}
-          >
-            {type === "login"
-              ? "register an account"
-              : "login with an existing account"}
-          </Link>
-        </div>
-      </div>
+      <MDBContainer className="mt-5">
+        <MDBRow className="mx-auto">
+          <MDBCol md="6" className="mx-auto">
+            <MDBCard className="mx-auto">
+              <MDBCardBody>
+                <MDBCardHeader
+                  className="form-header deep-blue-gradient rounded text-center mb-5"
+                  style={{
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+                  }}
+                >
+                  <h3 className="my-3">
+                    <MDBIcon icon="lock" />{" "}
+                    {type === "login" ? "Login" : "Register"}
+                  </h3>
+                </MDBCardHeader>
+                <form onSubmit={this.submitHandler}>
+                  <div className="grey-text">
+                    <MDBInput
+                      label="Type your username"
+                      icon="user"
+                      group
+                      type="username"
+                      error="wrong"
+                      success="right"
+                      name="username"
+                      className="mb-5"
+                      onChange={this.changeHandler}
+                    />
+                    <MDBInput
+                      label="Type your password"
+                      icon="lock"
+                      group
+                      type="password"
+                      validate
+                      name="password"
+                      onChange={this.changeHandler}
+                    />
+                  </div>
+
+                  <div className="text-center mt-4">
+                    <MDBBtn
+                      color="light-blue"
+                      className="mb-3"
+                      type="submit"
+                      style={{
+                        boxShadow:
+                          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+                      }}
+                    >
+                      {type === "login" ? "Login" : "Register"}
+                    </MDBBtn>
+                  </div>
+                </form>
+                <MDBModalFooter>
+                  <div className="font-weight-light">
+                    <Link
+                      to={type === "login" ? "/register" : "/login"}
+                      className="btn btn-small btn-link"
+                    >
+                      {type === "login"
+                        ? "register an account"
+                        : "login with an existing account"}
+                    </Link>
+                  </div>
+                </MDBModalFooter>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    user: state.rootAuth.user
-    // errors: state.errors.response
+    user: state.rootAuth
   };
 };
 
@@ -108,7 +125,6 @@ const mapDispatchToProps = dispatch => {
   return {
     authorization: (userData, type, history) =>
       dispatch(authorization(userData, type, history))
-    // resetErrors: errors => dispatch(setErrors(errors))
   };
 };
 
@@ -116,3 +132,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(RegistationForm);
+

@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import NavCartItem from "./NavCartItem";
 import { addItemToCart } from "../redux/actions";
+import { Link } from "react-router-dom";
 class ShoppingCart extends Component {
   state = {
     modal: false
@@ -26,11 +27,21 @@ class ShoppingCart extends Component {
       this.props.addItemToCart(item.product_id, 0)
     );
   }
+
   render() {
     if (!this.props.cart[0]) return null;
     const cartItems = this.props.cart[0].map((cartItem, idx) => {
       return <NavCartItem product={cartItem} key={idx} />;
     });
+
+    const calculateModalLength = () => {
+      if (this.props.cart[0].length > 0) {
+        return cartItems.length * 100;
+      } else {
+        return 80;
+      }
+    };
+
     return (
       <>
         {/* BUTTON */}
@@ -39,8 +50,25 @@ class ShoppingCart extends Component {
           onClick={this.toggle}
           style={{ display: "inline" }}
         >
-          <FontAwesomeIcon icon={faShoppingBag} />{" "}
-          {cartItems ? this.props.cart[0].length : null}
+          <div
+            style={{
+              position: "absolute",
+              left: "2px",
+              top: "1px",
+              width: "10%",
+              height: "10%"
+            }}
+          >
+            <a
+              href="#"
+              class="badge badge-secondary"
+              style={{ width: "15px", height: "15px" }}
+            >
+              {cartItems ? this.props.cart[0].length : null}
+            </a>
+          </div>
+          <FontAwesomeIcon icon={faShoppingBag} className="mr-2" />
+          {this.props.cart[1]} KD
         </MDBBtn>
         {/* MODAL */}
         <MDBModal
@@ -50,17 +78,30 @@ class ShoppingCart extends Component {
           position="top-right"
         >
           <MDBModalHeader toggle={this.toggle}>Your Cart</MDBModalHeader>
-          <MDBModalBody style={{ height: `${cartItems.length * 100}px` }}>
-            <div>
-              <ul className="list-group list-group-flush">{cartItems}</ul>
-            </div>
+
+          <MDBModalBody style={{ height: `${calculateModalLength()}px` }}>
+            {this.props.cart[0].length ? (
+              <div>
+                <ul class="list-group list-group-flush">{cartItems}</ul>
+              </div>
+            ) : (
+              <p>Add items to your cart!</p>
+            )}
+
           </MDBModalBody>
-          <MDBModalFooter>
-            <MDBBtn color="danger" onClick={() => this.clearCart()}>
-              clear cart
-            </MDBBtn>
-            <MDBBtn color="primary">Checkout</MDBBtn>
-          </MDBModalFooter>
+          {this.props.cart[0].length ? (
+            <MDBModalFooter>
+              <p className="mt-3 mr-4">Total: {this.props.cart[1]}KD</p>
+              <MDBBtn color="danger" size="sm" onClick={() => this.clearCart()}>
+                clear cart
+              </MDBBtn>
+              <Link to="/checkout" onClick={this.toggle}>
+                <MDBBtn color="primary" size="sm">
+                  Checkout
+                </MDBBtn>
+              </Link>
+            </MDBModalFooter>
+          ) : null}
         </MDBModal>
       </>
     );
