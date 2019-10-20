@@ -26,7 +26,12 @@ class Navbar extends Component {
                   </span>
                 </Link>
               </li>
+
+              <li className="nav-item dropdown">
+                <CategoriesDropdown />
+              </li>
             </ul>
+
             {!this.props.user ? (
               <div className="nav-item">
                 <Link to="/login">
@@ -72,16 +77,7 @@ class Navbar extends Component {
                 </div>
               </div>
             )}
-                
-              )}
-
-              <li className="nav-item dropdown">
-                <CategoriesDropdown />
-              </li>
-            </ul>
-
             {this.props.user ? <ShoppingCart /> : null}
-
           </div>
         </nav>
       </div>
