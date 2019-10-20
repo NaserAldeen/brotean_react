@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import CartNavBar from "./CartNavBar";
+
 import { connect } from "react-redux";
 import { logout } from "../redux/actions";
 import ShoppingCart from "./ShoppingCart";
-
+import CategoriesDropdown from "./CategoriesDropdown";
 class Navbar extends Component {
   render() {
     return (
@@ -18,7 +18,10 @@ class Navbar extends Component {
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <Link to="/">
-                  <span className="nav-link">
+                  <span
+                    className="nav-link"
+                    onClick={() => this.props.resetCategory("")}
+                  >
                     Home <span className="sr-only">(current)</span>
                   </span>
                 </Link>
@@ -57,22 +60,13 @@ class Navbar extends Component {
                   </div>
                 </li>
               )}
+
+              <li className="nav-item dropdown">
+                <CategoriesDropdown />
+              </li>
             </ul>
-            <form className="form-inline my-2 my-lg-0">
-              <input
-                className="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button
-                className="btn btn-outline-success my-2 my-sm-0 mr-2"
-                type="submit"
-              >
-                Search
-              </button>
-              {this.props.user ? <ShoppingCart /> : null}
-            </form>
+
+            {this.props.user ? <ShoppingCart /> : null}
           </div>
         </nav>
       </div>
@@ -89,7 +83,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    resetCategory: cat => dispatch({ type: "SET_CATEGORY", payload: cat })
   };
 };
 

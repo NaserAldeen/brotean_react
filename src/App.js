@@ -1,18 +1,23 @@
-import React, { Component } from "react";
 import "./App.css";
+import GoogleFontLoader from "react-google-font-loader";
+
+import React, { Component } from "react";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+//Actions
+import { showAlert } from "./redux/actions/alerts";
+import { getCart } from "./redux/actions/cart";
+
+//Components
+import RegistationForm from "./components/RegistrationForm";
+import Checkout from "./components/Checkout";
+import CategoriesList from "./components/CategoriesList";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
-import { Switch, Route, Redirect, withRouter } from "react-router-dom";
-import RegistationForm from "./components/RegistrationForm";
-import GoogleFontLoader from "react-google-font-loader";
-import $ from "jquery";
-import { connect } from "react-redux";
-import { showAlert } from "./redux/actions/alerts";
-import { getCart } from "./redux/actions/cart";
-import { Link } from "react-router-dom";
 import { MDBNotification } from "mdbreact";
-import Checkout from "./components/Checkout";
+
 class App extends Component {
   state = {
     showAlertt: false
@@ -41,6 +46,7 @@ class App extends Component {
             }
           ]}
         />
+
         <Navbar />
 
         {this.state.showAlertt && (
@@ -63,12 +69,14 @@ class App extends Component {
             }}
           />
         )}
+
         <Switch>
           <Redirect exact from="/" to="/products" />
           <Route path="/products/:prodID" component={ProductDetail} />
           <Route path="/products/" component={ProductList} />
           <Route path="/(login|register)" component={RegistationForm} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/categories" component={CategoriesList} />
         </Switch>
       </div>
     );
