@@ -1,28 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-// Components
-import OrderModal from "./OrderModal";
-
-const OrderRow = ({ order, index }) => {
+const OrderModalRow = ({ item }) => {
   return (
     <tr>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
-        {index + 1}
+        <img style={{ height: "50px" }} alt="" src={item.image} />
       </td>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
-        {order.completed ? "Completed" : "Incomplete"}
+        <Link to={`/products/${item.product_id}`}>{item.item}</Link>
       </td>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
-        Khaldiya, Block 3
+        {item.price} KWD
       </td>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
-        {order.total} KWD
-      </td>
-      <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
-        <OrderModal orderItems={order.cart_items} />
+        {item.quantity}
       </td>
     </tr>
   );
 };
 
-export default OrderRow;
+export default OrderModalRow;

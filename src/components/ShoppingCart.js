@@ -52,7 +52,7 @@ class ShoppingCart extends Component {
           <MDBModalHeader toggle={this.toggle}>Your Cart</MDBModalHeader>
           <MDBModalBody style={{ height: `${cartItems.length * 100}px` }}>
             <div>
-              <ul class="list-group list-group-flush">{cartItems}</ul>
+              <ul className="list-group list-group-flush">{cartItems}</ul>
             </div>
           </MDBModalBody>
           <MDBModalFooter>

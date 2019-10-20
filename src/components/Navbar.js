@@ -22,42 +22,52 @@ class Navbar extends Component {
                   </span>
                 </Link>
               </li>
-              {!this.props.user ? (
-                <li className="nav-item">
-                  <Link to="/login">
-                    <span className="nav-link">Login</span>
-                  </Link>
-                </li>
-              ) : (
-                <li className="nav-item dropdown">
-                  <span
-                    className="nav-link active dropdown-toggle pointer"
-                    id="navbarDropdown"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    {this.props.user.username}
-                  </span>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <Link to="/profile">
-                      <span className="dropdown-item pointer">Profile</span>
-                    </Link>
-                    <div className="dropdown-divider pointer"></div>
-                    <span
-                      className="dropdown-item pointer"
-                      onClick={() => this.props.logout()}
-                    >
-                      Logout
-                    </span>
-                  </div>
-                </li>
-              )}
             </ul>
+            {!this.props.user ? (
+              <div className="nav-item">
+                <Link to="/login">
+                  <span className="nav-link">Login</span>
+                </Link>
+              </div>
+            ) : (
+              <div className="nav-item dropdown mr-3">
+                <span
+                  className="nav-link active pointer text-white"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style={{
+                    background: "#33b5e6",
+                    borderRadius: "50%",
+                    width: "40px",
+                    height: "40px",
+                    verticalAlign: "middle",
+                    paddingRight: "29px"
+                  }}
+                >
+                  {this.props.user.username[0].toUpperCase()}
+                </span>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <span className="dropdown-item pointer">
+                    <Link
+                      style={{ padding: 0, fontSize: "16px" }}
+                      to="/profile"
+                    >
+                      Profile
+                    </Link>
+                  </span>
+                  <div className="dropdown-divider pointer"></div>
+                  <span
+                    className="dropdown-item pointer"
+                    onClick={() => this.props.logout()}
+                  >
+                    Logout
+                  </span>
+                </div>
+              </div>
+            )}
             <form className="form-inline my-2 my-lg-0">
               <input
                 className="form-control mr-sm-2"

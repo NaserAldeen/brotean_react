@@ -1,13 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+
+// Components
 import OrderRow from "./OrderRow";
 
 const Profile = props => {
+  if (!props.user) return <Redirect to="/login" />;
   if (props.profile !== null) {
     const orderRows = props.profile.orders.map((order, index) => (
       <OrderRow key={index} index={index} order={order} />
     ));
-    const order = props.profile.orders[0];
     return (
       <div className="container my-3">
         <div className="jumbotron">
@@ -66,8 +69,9 @@ const Profile = props => {
               <tr>
                 <th>#</th>
                 <th>Status</th>
+                <th>Ship To</th>
                 <th>Total</th>
-                <th>View</th>
+                <th>Order Details</th>
               </tr>
             </thead>
             <tbody>{orderRows}</tbody>

@@ -5,7 +5,7 @@ import { addItemToCart } from "../redux/actions";
 class NavCartItem extends Component {
   render() {
     return (
-      <li class="list-group-item">
+      <li className="list-group-item">
         <div className="row">
           <div className="col-3">
             <img
