@@ -33,6 +33,7 @@ class ShoppingCart extends Component {
     const cartItems = this.props.cart[0].map((cartItem, idx) => {
       return <NavCartItem product={cartItem} key={idx} />;
     });
+
     const calculateModalLength = () => {
       if (this.props.cart[0].length > 0) {
         return cartItems.length * 100;
@@ -40,6 +41,7 @@ class ShoppingCart extends Component {
         return 80;
       }
     };
+
     return (
       <>
         {/* BUTTON */}
@@ -76,6 +78,7 @@ class ShoppingCart extends Component {
           position="top-right"
         >
           <MDBModalHeader toggle={this.toggle}>Your Cart</MDBModalHeader>
+
           <MDBModalBody style={{ height: `${calculateModalLength()}px` }}>
             {this.props.cart[0].length ? (
               <div>
@@ -84,6 +87,7 @@ class ShoppingCart extends Component {
             ) : (
               <p>Add items to your cart!</p>
             )}
+
           </MDBModalBody>
           {this.props.cart[0].length ? (
             <MDBModalFooter>

@@ -1,5 +1,7 @@
 import axios from "axios";
+
 import { ADD_ITEM_CART, GET_CART, CHECKOUT } from "./actionTypes";
+
 
 export const addItemToCart = (product_id, quantity) => {
   return async dispatch => {
@@ -23,7 +25,7 @@ export const addItemToCart = (product_id, quantity) => {
             : { item: product_id, quantity: 0 }
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 };
@@ -32,7 +34,7 @@ export const getCart = () => {
     try {
       const res = await axios.get(`http://127.0.0.1:8000/api/get_cart/`);
       const cart = res.data;
-
+      console.log(cart);
       dispatch({
         type: GET_CART,
         payload: [cart[0].cart_items, cart[0].total]

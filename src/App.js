@@ -1,6 +1,7 @@
 import "./App.css";
 import GoogleFontLoader from "react-google-font-loader";
 
+import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -10,6 +11,7 @@ import { showAlert } from "./redux/actions/alerts";
 import { getCart } from "./redux/actions/cart";
 
 //Components
+import Profile from "./components/Profile";
 import RegistationForm from "./components/RegistrationForm";
 import Checkout from "./components/Checkout";
 import CategoriesList from "./components/CategoriesList";
@@ -18,13 +20,14 @@ import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
 import { MDBNotification } from "mdbreact";
 
+
 class App extends Component {
   state = {
     showAlertt: false
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.alertMessage.length != this.props.alertMessage.length) {
+    if (prevProps.alertMessage.length !== this.props.alertMessage.length) {
       this.setState({ showAlertt: true });
       window.setTimeout(
         function() {
@@ -72,6 +75,7 @@ class App extends Component {
 
         <Switch>
           <Redirect exact from="/" to="/products" />
+          <Route path="/profile/" component={Profile} />
           <Route path="/products/:prodID" component={ProductDetail} />
           <Route path="/products/" component={ProductList} />
           <Route path="/(login|register)" component={RegistationForm} />
@@ -85,7 +89,7 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     alertMessage: state.UI.alert,
-    user: state.rootAuth,
+    user: state.rootAuth.user,
     products: state.rootProducts.products
   };
 };

@@ -58,7 +58,7 @@ class ProductItem extends Component {
 }
 const mapStateToProps = state => {
   return {
-    user: state.rootAuth
+    user: state.rootAuth.user
   };
 };
 const mapDispatchToProps = dispatch => {

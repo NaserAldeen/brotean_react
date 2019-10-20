@@ -6,7 +6,7 @@ import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 class NavCartItem extends Component {
   render() {
     return (
-      <li class="list-group-item">
+      <li className="list-group-item">
         <div className="row">
           <div className="col-2">
             <img

@@ -98,7 +98,7 @@ const mapStateToProps = state => {
   return {
     currentProduct: state.rootProduct.currentProduct,
     spinnerCount: state.UI.spinnerCount,
-    user: state.rootAuth
+    user: state.rootAuth.user
   };
 };
 const mapDispatchToProps = dispatch => {
