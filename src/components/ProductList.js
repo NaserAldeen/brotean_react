@@ -19,8 +19,15 @@ class ProductList extends Component {
           prod => prod.category == this.props.selectedCategory
         );
       if (this.state.query)
-        products = products.filter(prod =>
-          prod.name.toLowerCase().includes(this.state.query.toLowerCase())
+        products = products.filter(
+          prod =>
+            prod.name.toLowerCase().includes(this.state.query.toLowerCase()) ||
+            prod.category
+              .toLowerCase()
+              .includes(this.state.query.toLowerCase()) ||
+            prod.manufacturer
+              .toLowerCase()
+              .includes(this.state.query.toLowerCase())
         );
       products = products.map((prod, idx) => (
         <ProductItem key={idx} product={prod} />
