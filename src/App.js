@@ -12,7 +12,7 @@ import { showAlert } from "./redux/actions/alerts";
 import { getCart } from "./redux/actions/cart";
 import { Link } from "react-router-dom";
 import { MDBNotification } from "mdbreact";
-
+import Checkout from "./components/Checkout";
 class App extends Component {
   state = {
     showAlertt: false
@@ -46,9 +46,6 @@ class App extends Component {
         {this.state.showAlertt && (
           <MDBNotification
             autohide={2000}
-            bodyClassName="p-5 font-weight-bold white-text"
-            className="stylish-color-dark"
-            closeClassName="blue-grey-text"
             fade
             icon="bell"
             iconClassName="blue-grey-text"
@@ -56,7 +53,6 @@ class App extends Component {
               this.props.alertMessage[this.props.alertMessage.length - 1]
             }
             show
-            text="11 mins ago"
             title="Message"
             titleClassName="elegant-color-dark white-text"
             style={{
@@ -72,6 +68,7 @@ class App extends Component {
           <Route path="/products/:prodID" component={ProductDetail} />
           <Route path="/products/" component={ProductList} />
           <Route path="/(login|register)" component={RegistationForm} />
+          <Route path="/checkout" component={Checkout} />
         </Switch>
       </div>
     );
