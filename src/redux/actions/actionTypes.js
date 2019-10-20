@@ -5,3 +5,4 @@ export const ADD_ITEM_CART = "ADD_ITEM_CART";
 export const SHOW_ALERT = "SHOW_ALERT";
 export const GET_CART = "GET_CART";
 export const CHECKOUT = "CHECKOUT";
+export const GET_CATEGORIES = "GET_CATEGORIES";

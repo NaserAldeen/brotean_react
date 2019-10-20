@@ -48,8 +48,25 @@ class ShoppingCart extends Component {
           onClick={this.toggle}
           style={{ display: "inline" }}
         >
-          <FontAwesomeIcon icon={faShoppingBag} />{" "}
-          {cartItems ? this.props.cart[0].length : null}
+          <div
+            style={{
+              position: "absolute",
+              left: "2px",
+              top: "1px",
+              width: "10%",
+              height: "10%"
+            }}
+          >
+            <a
+              href="#"
+              class="badge badge-secondary"
+              style={{ width: "15px", height: "15px" }}
+            >
+              {cartItems ? this.props.cart[0].length : null}
+            </a>
+          </div>
+          <FontAwesomeIcon icon={faShoppingBag} className="mr-2" />
+          {this.props.cart[1]} KD
         </MDBBtn>
         {/* MODAL */}
         <MDBModal
