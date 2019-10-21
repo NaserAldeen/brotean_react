@@ -9,4 +9,4 @@ export const GET_USER_PROFILE = "GET_USER_PROFILE";
 
 export const CHECKOUT = "CHECKOUT";
 export const GET_CATEGORIES = "GET_CATEGORIES";
-
+export const GET_ADDRESS = "GET_ADDRESS";
