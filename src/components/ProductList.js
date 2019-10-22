@@ -47,18 +47,18 @@ class ProductList extends Component {
             </h1>
           </div>
           <div className="col">
-            <div class="container h-100">
-              <div class="d-flex justify-content-center h-100">
-                <div class="searchbar">
+            <div className="container h-100">
+              <div className="d-flex justify-content-center h-100">
+                <div className="searchbar">
                   <input
-                    class="search_input"
+                    className="search_input"
                     type="text"
                     name=""
                     placeholder="Search for products.."
                     onChange={this.handleSearch}
                   />
-                  <a href="#" class="search_icon">
-                    <i class="fas fa-search"></i>
+                  <a href="#" className="search_icon">
+                    <i className="fas fa-search"></i>
                   </a>
                 </div>
               </div>

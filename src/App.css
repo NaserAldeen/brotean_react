@@ -2,6 +2,16 @@
   cursor: pointer !important;
 }
 
+.profile-image {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  border-style: solid;
+}
+
 .product-grid3 {
   font-family: Roboto, sans-serif;
   text-align: center;

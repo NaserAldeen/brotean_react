@@ -61,7 +61,7 @@ class ShoppingCart extends Component {
           >
             <a
               href="#"
-              class="badge badge-secondary"
+              className="badge badge-secondary"
               style={{ width: "15px", height: "15px" }}
             >
               {cartItems ? this.props.cart[0].length : null}
@@ -82,12 +82,11 @@ class ShoppingCart extends Component {
           <MDBModalBody style={{ height: `${calculateModalLength()}px` }}>
             {this.props.cart[0].length ? (
               <div>
-                <ul class="list-group list-group-flush">{cartItems}</ul>
+                <ul className="list-group list-group-flush">{cartItems}</ul>
               </div>
             ) : (
               <p>Add items to your cart!</p>
             )}
-
           </MDBModalBody>
           {this.props.cart[0].length ? (
             <MDBModalFooter>
