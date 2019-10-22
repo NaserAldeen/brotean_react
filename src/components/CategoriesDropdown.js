@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 
 class CategoriesDropdown extends Component {
   render() {
-    const categoriesList = this.props.categories.map(cat => (
+    const categoriesList = this.props.categories.map((cat, idx) => (
       <button
-        class="dropdown-item"
+        className="dropdown-item"
         type="button"
+        key={idx}
         onClick={() => this.props.setCategory(cat.name)}
       >
         <Link to="/">{cat.name}</Link>
@@ -15,7 +16,7 @@ class CategoriesDropdown extends Component {
     ));
     return (
       <div>
-        <div class="dropdown">
+        <div className="dropdown">
           <span
             className="nav-link active dropdown-toggle pointer"
             id="dropdownMenu"
@@ -26,9 +27,9 @@ class CategoriesDropdown extends Component {
           >
             Categories
           </span>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuMenu">
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuMenu">
             <button
-              class="dropdown-item"
+              className="dropdown-item"
               type="button"
               onClick={() => this.props.setCategory("")}
             >

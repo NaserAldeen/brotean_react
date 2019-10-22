@@ -3,7 +3,7 @@ import React from "react";
 // Components
 import OrderModal from "./OrderModal";
 
-const OrderRow = ({ order, index }) => {
+const OrderRow = ({ order, address, index }) => {
   const months = [
     "Jan",
     "Feb",
@@ -38,18 +38,18 @@ const OrderRow = ({ order, index }) => {
   timestamp = hour + ":" + minute + " " + meridiem;
 
   return (
-    <tr className="text-light">
+    <tr className="">
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
         {index + 1}
       </td>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
-        {order.completed ? "Completed" : "Incomplete"}
+        {order.completed ? "Completed" : "Pending"}
       </td>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
         {order.date && datestamp + " " + timestamp}
       </td>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
-        Khaldiya, Block 3
+        {address.area}, Block {address.block}
       </td>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
         {order.total} KWD

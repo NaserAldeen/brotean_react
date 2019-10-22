@@ -5,7 +5,9 @@ const OrderModalRow = ({ item }) => {
   return (
     <tr>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
-        <img style={{ height: "50px" }} alt="" src={item.image} />
+        <Link to={`/products/${item.product_id}`}>
+          <img style={{ height: "50px" }} alt="" src={item.image} />
+        </Link>
       </td>
       <td style={{ verticalAlign: "middle", paddingTop: 5, paddingBottom: 5 }}>
         <Link to={`/products/${item.product_id}`}>{item.item}</Link>

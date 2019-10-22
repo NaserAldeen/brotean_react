@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { checkout } from "../redux/actions";
 import $ from "jquery";
 import { updateProfile, updateCreateAddress } from "../redux/actions";
-import { Link } from "@material-ui/core";
+
 class Checkout extends React.Component {
   state = {
     first_name: "",
@@ -129,15 +129,25 @@ class Checkout extends React.Component {
       });
     }
     if (this.state.editedAddress) {
-      this.props.updateCreateAddress({
-        id: this.state.selectedAddress,
-        governate: this.state.governate,
-        area: this.state.area,
-        block: this.state.block,
-        street: this.state.street,
-        additional_address: this.state.additional_address,
-        phone_number: this.state.phone
-      });
+      if (this.state.selectedAddress == -1)
+        this.props.updateCreateAddress({
+          governate: this.state.governate,
+          area: this.state.area,
+          block: this.state.block,
+          street: this.state.street,
+          additional_address: this.state.additional_address,
+          phone_number: this.state.phone
+        });
+      else
+        this.props.updateCreateAddress({
+          id: this.state.selectedAddress,
+          governate: this.state.governate,
+          area: this.state.area,
+          block: this.state.block,
+          street: this.state.street,
+          additional_address: this.state.additional_address,
+          phone_number: this.state.phone
+        });
     }
 
     this.setState({
@@ -366,30 +376,36 @@ class Checkout extends React.Component {
                   <h3 className="fs-subtitle">Select a payment method</h3>
 
                   <div
-                    class="container"
+                    className="container"
                     style={{ padding: "2rem 0rem", marginLeft: "100px" }}
                     className="text-justify"
                   >
-                    <div class="custom-control custom-radio">
+                    <div className="custom-control custom-radio">
                       <input
                         type="radio"
                         id="customRadio1"
                         name="customRadio"
-                        class="custom-control-input"
+                        className="custom-control-input"
                         checked
                       />
-                      <label class="custom-control-label" for="customRadio1">
+                      <label
+                        className="custom-control-label"
+                        for="customRadio1"
+                      >
                         KNET
                       </label>
                     </div>
-                    <div class="custom-control custom-radio">
+                    <div className="custom-control custom-radio">
                       <input
                         type="radio"
                         id="customRadio2"
                         name="customRadio"
-                        class="custom-control-input"
+                        className="custom-control-input"
                       />
-                      <label class="custom-control-label" for="customRadio2">
+                      <label
+                        className="custom-control-label"
+                        for="customRadio2"
+                      >
                         Pay on Delivery
                       </label>
                     </div>
