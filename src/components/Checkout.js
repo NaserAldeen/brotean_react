@@ -129,7 +129,7 @@ class Checkout extends React.Component {
       });
     }
     if (this.state.editedAddress) {
-      await this.props.updateCreateAddress({
+      this.props.updateCreateAddress({
         id: this.state.selectedAddress,
         governate: this.state.governate,
         area: this.state.area,
@@ -144,10 +144,16 @@ class Checkout extends React.Component {
       editedAddress: false,
       editedProfile: false
     });
-    window.setTimeout(
-      () => this.props.checkout(this.state.selectedAddress),
-      1000
-    );
+    if (this.state.selectedAddress != -1)
+      this.props.checkout(this.state.selectedAddress);
+    else {
+      const newAddress = this.props.profile.addresses[
+        this.props.profile.addresses.length - 1
+      ];
+
+      this.props.checkout(newAddress.id + 1);
+    }
+
     this.props.history.replace("/order-complete");
   };
   render() {
