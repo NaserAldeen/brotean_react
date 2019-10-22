@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { checkout } from "../redux/actions";
 import $ from "jquery";
+import { updateProfile, updateCreateAddress } from "../redux/actions";
+import { Link } from "@material-ui/core";
 class Checkout extends React.Component {
   state = {
     first_name: "",
@@ -12,15 +14,18 @@ class Checkout extends React.Component {
     block: "",
     street: "",
     additional_address: "",
-    email: ""
+    email: "",
+    loadedInfo: false,
+    editedProfile: false,
+    editedAddress: false,
+    selectedAddress: -1
   };
-  componentDidMount() {
+  componentDidUpdate() {
     var current_fs, next_fs, previous_fs;
     var left, opacity, scale;
     var animating;
 
     $(".next").click(function() {
-      //   if (!this.refs.firstName) return;
       if (animating) return false;
 
       animating = true;
@@ -99,16 +104,94 @@ class Checkout extends React.Component {
       );
     });
   }
+  handleSelectChange = e => {
+    this.setState({
+      selectedAddress: e.target.value,
+      loadedInfo: false
+    });
+  };
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+    this.setState({ editedAddress: true });
   };
-  handleChange2 = () => {};
+  handleChangeProfile = e => {
+    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ editedProfile: true });
+  };
+  handleSubmit = async e => {
+    e.preventDefault();
+
+    if (this.state.editedProfile) {
+      this.props.updateProfile({
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email: this.state.email
+      });
+    }
+    if (this.state.editedAddress) {
+      this.props.updateCreateAddress({
+        id: this.state.selectedAddress,
+        governate: this.state.governate,
+        area: this.state.area,
+        block: this.state.block,
+        street: this.state.street,
+        additional_address: this.state.additional_address,
+        phone_number: this.state.phone
+      });
+    }
+
+    this.setState({
+      editedAddress: false,
+      editedProfile: false
+    });
+    if (this.state.selectedAddress != -1)
+      this.props.checkout(this.state.selectedAddress);
+    else {
+      const newAddress = this.props.profile.addresses[
+        this.props.profile.addresses.length - 1
+      ];
+
+      this.props.checkout(newAddress.id + 1);
+    }
+
+    this.props.history.replace("/order-complete");
+  };
   render() {
+    if (!this.props.profile) return <h2>Loading..</h2>;
+
+    if (!this.state.loadedInfo) {
+      let address;
+      if (this.state.selectedAddress == -1) {
+        this.setState({
+          first_name: this.props.profile.user.first_name,
+          last_name: this.props.profile.user.last_name,
+          email: this.props.profile.user.email,
+
+          loadedInfo: true
+        });
+      } else {
+        address = this.props.profile.addresses.find(
+          add => add.id == this.state.selectedAddress
+        );
+        this.setState({
+          phone: address.phone_number,
+
+          governate: address.governate,
+          area: address.area,
+          block: address.block,
+          street: address.street,
+          additional_address: address.additional_address,
+
+          loadedInfo: true
+        });
+      }
+    }
+
     return (
       <div className="container mt-5 text-center">
         <div
           className="jumbotron bg-dark mx-auto"
-          style={{ width: "90%", minHeight: "650px" }}
+          style={{ width: "90%", minHeight: "800px" }}
         >
           <div className="row">
             <div className="col-md-6">
@@ -116,10 +199,7 @@ class Checkout extends React.Component {
                 id="msform"
                 className="container-fluid"
                 style={{ width: "900px" }}
-                onSubmit={e => {
-                  this.props.checkout();
-                  alert("fds");
-                }}
+                onSubmit={this.handleSubmit}
               >
                 <ul id="progressbar">
                   <li className="active">Personal Details</li>
@@ -132,37 +212,32 @@ class Checkout extends React.Component {
                   <h3 className="fs-subtitle">
                     Please verify your information
                   </h3>
+                  <label for="first_name">First Name</label>
+                  <input
+                    type="text"
+                    name="first_name"
+                    placeholder="First Name"
+                    ref="firstName"
+                    value={this.state.first_name}
+                    onChange={e => this.handleChangeProfile(e)}
+                  />
+                  <label for="last_name">Last Name</label>
+                  <input
+                    type="text"
+                    name="last_name"
+                    placeholder="Last Name"
+                    value={this.state.last_name}
+                    onChange={e => this.handleChangeProfile(e)}
+                  />
+                  <label for="email">Email</label>
                   <input
                     type="text"
                     name="email"
                     placeholder="Email"
-                    onChange={e => this.handleChange(e)}
+                    value={this.state.email}
+                    onChange={e => this.handleChangeProfile(e)}
                   />
-                  <div className="row">
-                    <div className="col">
-                      <input
-                        type="text"
-                        name="first_name"
-                        placeholder="First Name"
-                        ref="firstName"
-                        onChange={e => this.handleChange(e)}
-                      />
-                    </div>
-                    <div className="col">
-                      <input
-                        type="text"
-                        name="last_name"
-                        placeholder="Last Name"
-                        onChange={e => this.handleChange(e)}
-                      />
-                    </div>
-                  </div>
-                  <input
-                    type="text"
-                    name="phone"
-                    placeholder="Phone"
-                    onChange={e => this.handleChange(e)}
-                  />
+
                   <input
                     type="button"
                     name="next"
@@ -171,8 +246,7 @@ class Checkout extends React.Component {
                     disabled={
                       this.state.email.trim() == "" ||
                       this.state.first_name.trim() == "" ||
-                      this.state.last_name.trim() == "" ||
-                      this.state.phone.trim() == ""
+                      this.state.last_name.trim() == ""
                         ? true
                         : false
                     }
@@ -183,21 +257,40 @@ class Checkout extends React.Component {
                   <h3 className="fs-subtitle">
                     Please specify a delivery address
                   </h3>
+
+                  <select
+                    className="custom-select mb-4"
+                    onChange={this.handleSelectChange}
+                  >
+                    <option selected value={-1}>
+                      Create a new address
+                    </option>
+                    {this.props.profile.addresses.map(add => (
+                      <option value={add.id}>
+                        {add.governate}, {add.area}, {add.block}, {add.street}
+                      </option>
+                    ))}
+                  </select>
+
                   <div className="row">
                     <div className="col">
+                      <label for="governate">Governate</label>
                       <input
                         type="text"
                         name="governate"
                         placeholder="Governate"
+                        value={this.state.governate}
                         required
                         onChange={e => this.handleChange(e)}
                       />
                     </div>
                     <div className="col">
+                      <label for="area">Area</label>
                       <input
                         type="text"
                         name="area"
                         placeholder="Area"
+                        value={this.state.area}
                         required
                         onChange={e => this.handleChange(e)}
                       />
@@ -205,28 +298,45 @@ class Checkout extends React.Component {
                   </div>
                   <div className="row">
                     <div className="col">
+                      <label for="block">Block</label>
                       <input
                         type="text"
                         name="block"
                         placeholder="Block"
+                        value={this.state.block}
                         required
                         onChange={e => this.handleChange(e)}
                       />
                     </div>
                     <div className="col">
+                      <label for="street">Street</label>
                       <input
                         type="text"
                         name="street"
                         placeholder="Street"
+                        value={this.state.street}
                         required
                         onChange={e => this.handleChange(e)}
                       />
                     </div>
                   </div>
+
+                  <label for="phone">Phone Number</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="Phone number"
+                    value={this.state.phone}
+                    required
+                    onChange={e => this.handleChange(e)}
+                  />
+
+                  <label for="additional_address">Extra Directions</label>
                   <textarea
                     type="text"
                     name="additional_address"
                     placeholder="Additional address.."
+                    value={this.state.additional_address}
                     onChange={e => this.handleChange(e)}
                   />
 
@@ -297,7 +407,6 @@ class Checkout extends React.Component {
                     className="submit action-button"
                     value="Place order!"
                     disabled={this.state.email.trim() == "" ? true : false}
-                    onClick={() => alert("fds")}
                   />
                 </fieldset>
               </form>
@@ -308,13 +417,20 @@ class Checkout extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    profile: state.rootAuth.userProfile
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
-    checkout: () => dispatch(checkout())
+    checkout: address_id => dispatch(checkout(address_id)),
+    updateProfile: obj => dispatch(updateProfile(obj)),
+    updateCreateAddress: obj => dispatch(updateCreateAddress(obj))
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Checkout);

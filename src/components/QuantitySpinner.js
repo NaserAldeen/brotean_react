@@ -21,6 +21,7 @@ class QuantitySpinner extends Component {
           name="number"
           value={this.props.number}
           onChange={e => this.handleChange(e)}
+          onKeyDown={e => e.preventDefault()}
         />
       </div>
     );

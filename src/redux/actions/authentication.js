@@ -1,7 +1,12 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import { SET_CURRENT_USER, GET_CART, GET_USER_PROFILE } from "./actionTypes";
+import {
+  SET_CURRENT_USER,
+  GET_CART,
+  GET_USER_PROFILE,
+  GET_ADDRESS
+} from "./actionTypes";
 import { getCart } from "./cart";
 // import { setErrors } from "./errors";
 
@@ -72,6 +77,33 @@ const getProfile = () => {
       const res = await axios.get(`http://127.0.0.1:8000/api/profile/`);
       const userProfile = res.data;
       dispatch({ type: GET_USER_PROFILE, payload: userProfile });
+    } catch (errors) {
+      // console.error(errors.response.data);
+    }
+  };
+};
+
+export const updateProfile = obj => {
+  return async dispatch => {
+    try {
+      const res = await axios.put(`http://127.0.0.1:8000/api/profile/`, obj);
+      const userProfile = res.data;
+      dispatch({ type: GET_USER_PROFILE, payload: userProfile });
+    } catch (errors) {
+      // console.error(errors.response.data);
+    }
+  };
+};
+
+export const updateCreateAddress = obj => {
+  return async dispatch => {
+    try {
+      let res;
+      if (obj.id == -1)
+        res = await axios.post(`http://127.0.0.1:8000/api/address/`, obj);
+      else res = await axios.put(`http://127.0.0.1:8000/api/address/`, obj);
+      const address = res.data;
+      dispatch({ type: GET_ADDRESS, payload: address });
     } catch (errors) {
       // console.error(errors.response.data);
     }

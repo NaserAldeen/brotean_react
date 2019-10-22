@@ -13,7 +13,13 @@ class ProductItem extends Component {
   render() {
     return (
       <div className="col-md-3 col-sm-6 mb-4">
-        <div className="product-grid3">
+        <div
+          className="product-grid3"
+          style={{
+            boxShadow:
+              "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+          }}
+        >
           <div className="product-image3">
             <Link to={`products/${this.props.product.id}`}>
               <span onClick={() => this.handlePress()}>
@@ -41,8 +47,13 @@ class ProductItem extends Component {
             </ul>
           </div>
           <div className="product-content">
-            <h3 className="title">{this.props.product.name}</h3>
-            <div className="price">{this.props.product.price}KWD</div>
+            <h3 className="">{this.props.product.name}</h3>
+            <div className="price">
+              {Math.floor(this.props.product.price) == this.props.product.price
+                ? parseFloat(this.props.product.price)
+                : this.props.product.price}
+              KWD
+            </div>
             <div
               className={
                 this.props.product.quantity > 0 ? "text-muted" : "text-danger"

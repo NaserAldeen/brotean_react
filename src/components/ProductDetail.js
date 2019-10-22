@@ -18,7 +18,7 @@ class ProductDetail extends Component {
     this.props.resetProduct();
   }
 
-  handleAddToCartClick(e) {
+  handleAddToCartClick = e => {
     if (!this.props.user) {
       this.props.showAlert("Login to add items to your cart");
       return;
@@ -35,7 +35,7 @@ class ProductDetail extends Component {
       );
       this.props.showAlert("Added item successfully!");
     }
-  }
+  };
   renderErrorsAfterClickingOnAddToCart() {
     if (!this.state.canAddToCart) {
       return "Not enough items in stock";
@@ -56,16 +56,29 @@ class ProductDetail extends Component {
             </div>
             <div className="row">
               <h5 className="" style={{ fontSize: "40px", marginLeft: "35px" }}>
-                Price: <strong>{this.props.currentProduct.price}KWD</strong>
+                Price:{" "}
+                <strong>
+                  {Math.floor(this.props.currentProduct.price) ==
+                  this.props.currentProduct.price
+                    ? parseFloat(this.props.currentProduct.price)
+                    : this.props.currentProduct.price}{" "}
+                  KWD
+                </strong>
               </h5>
             </div>
             <div className="row">
               <p>
                 <button
                   className="btnAdd btn-5 btn-5a icon-cart"
-                  onClick={e => this.handleAddToCartClick(e)}
+                  onClick={
+                    this.props.currentProduct.quantity > 0
+                      ? this.handleAddToCartClick
+                      : null
+                  }
                 >
-                  Add to cart
+                  {this.props.currentProduct.quantity > 0
+                    ? "Add to cart"
+                    : "OUT OF STOCK"}
                 </button>
                 <br />
                 <span className="text-danger">
@@ -77,7 +90,7 @@ class ProductDetail extends Component {
               <QuantitySpinner max={this.props.currentProduct.quantity} />
             </div>
           </div>
-          <div className="col-6 ml-4">
+          <div className="col-6 ml-4 mt-5 text-center">
             <h1 className="" style={{ fontSize: "48px" }}>
               {this.props.currentProduct.name}
             </h1>

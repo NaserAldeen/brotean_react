@@ -18,8 +18,8 @@ import CategoriesList from "./components/CategoriesList";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
+import ThankYouReceipt from "./components/ThankYouReceipt";
 import { MDBNotification } from "mdbreact";
-
 
 class App extends Component {
   state = {
@@ -45,7 +45,7 @@ class App extends Component {
           fonts={[
             {
               font: "Ubuntu",
-              weights: [400]
+              weights: [300]
             }
           ]}
         />
@@ -81,6 +81,7 @@ class App extends Component {
           <Route path="/(login|register)" component={RegistationForm} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/categories" component={CategoriesList} />
+          <Route path="/order-complete" component={ThankYouReceipt} />
         </Switch>
       </div>
     );

@@ -2,7 +2,6 @@ import axios from "axios";
 
 import { ADD_ITEM_CART, GET_CART, CHECKOUT } from "./actionTypes";
 
-
 export const addItemToCart = (product_id, quantity) => {
   return async dispatch => {
     try {
@@ -34,7 +33,7 @@ export const getCart = () => {
     try {
       const res = await axios.get(`http://127.0.0.1:8000/api/get_cart/`);
       const cart = res.data;
-      console.log(cart);
+
       dispatch({
         type: GET_CART,
         payload: [cart[0].cart_items, cart[0].total]
@@ -44,10 +43,13 @@ export const getCart = () => {
     }
   };
 };
-export const checkout = () => {
+export const checkout = address_id => {
   return async dispatch => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/checkout/`);
+      console.log(address_id);
+      const res = await axios.post(`http://127.0.0.1:8000/api/checkout/`, {
+        id: address_id
+      });
       // const cart = res.data;
 
       dispatch({
