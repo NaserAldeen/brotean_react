@@ -5,13 +5,23 @@ import { connect } from "react-redux";
 import { logout } from "../redux/actions";
 import ShoppingCart from "./ShoppingCart";
 import CategoriesDropdown from "./CategoriesDropdown";
+import BrandsDropdown from "./BrandsDropdown";
 class Navbar extends Component {
   render() {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <Link to="/">
-            <span className="navbar-brand">Brotean</span>
+            <span
+              className="navbar-brand"
+              onClick={() => {
+                this.props.resetCategory("");
+                this.props.resetBrand("");
+              }}
+              v
+            >
+              Brotean
+            </span>
           </Link>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -20,7 +30,10 @@ class Navbar extends Component {
                 <Link to="/">
                   <span
                     className="nav-link"
-                    onClick={() => this.props.resetCategory("")}
+                    onClick={() => {
+                      this.props.resetCategory("");
+                      this.props.resetBrand("");
+                    }}
                   >
                     Home <span className="sr-only">(current)</span>
                   </span>
@@ -29,6 +42,9 @@ class Navbar extends Component {
 
               <li className="nav-item dropdown">
                 <CategoriesDropdown />
+              </li>
+              <li className="nav-item dropdown">
+                <BrandsDropdown />
               </li>
             </ul>
 
@@ -95,7 +111,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     logout: () => dispatch(logout()),
-    resetCategory: cat => dispatch({ type: "SET_CATEGORY", payload: cat })
+    resetCategory: cat => dispatch({ type: "SET_CATEGORY", payload: cat }),
+    resetBrand: brand => dispatch({ type: "SET_BRAND", payload: brand })
   };
 };
 

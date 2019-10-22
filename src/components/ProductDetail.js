@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import QuantitySpinner from "./QuantitySpinner";
 import { addItemToCart } from "../redux/actions";
 import { showAlert } from "../redux/actions/alerts";
+import LoadingSpinner from "./LoadingSpinner";
 
 //Add stock quantity and category
 
@@ -42,19 +43,30 @@ class ProductDetail extends Component {
     }
   }
   render() {
+    if (!this.props.currentProduct)
+      return (
+        <div className="container mt-5 text-center justify-content-center w-100">
+          <LoadingSpinner />
+        </div>
+      );
     return (
       <div className="container mt-5">
-        <div className="row">
-          <div className="col-4 ml-5">
-            <div className="row">
+        <div className="row text-center">
+          <div className="col-4 ml-5 text-center text-center">
+            <div className="row text-center">
               <img
-                className="mt-5"
+                className="mt-5 mb-3"
                 alt=""
                 src={this.props.currentProduct.image}
                 style={{ width: "340px", height: "400px" }}
               />
             </div>
-            <div className="row">
+            <div className="row text-center">
+              <p className="text-muted">
+                Items left in stock: {this.props.currentProduct.quantity}
+              </p>
+            </div>
+            <div className="row text-center">
               <h5 className="" style={{ fontSize: "40px", marginLeft: "35px" }}>
                 Price:{" "}
                 <strong>

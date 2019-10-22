@@ -41,7 +41,7 @@ export const authorization = (userData, type, history) => {
       }
       history.replace("/");
     } catch (errors) {
-      // console.error(errors.response.data);
+      console.error(errors.response.data);
       //   dispatch(setErrors(errors));
     }
   };
@@ -78,7 +78,7 @@ const getProfile = () => {
       const userProfile = res.data;
       dispatch({ type: GET_USER_PROFILE, payload: userProfile });
     } catch (errors) {
-      // console.error(errors.response.data);
+      console.error(errors.response.data);
     }
   };
 };
@@ -90,7 +90,7 @@ export const updateProfile = obj => {
       const userProfile = res.data;
       dispatch({ type: GET_USER_PROFILE, payload: userProfile });
     } catch (errors) {
-      // console.error(errors.response.data);
+      console.error(errors.response.data);
     }
   };
 };
@@ -98,14 +98,11 @@ export const updateProfile = obj => {
 export const updateCreateAddress = obj => {
   return async dispatch => {
     try {
-      let res;
-      if (obj.id == -1)
-        res = await axios.post(`http://127.0.0.1:8000/api/address/`, obj);
-      else res = await axios.put(`http://127.0.0.1:8000/api/address/`, obj);
+      const res = await axios.post(`http://127.0.0.1:8000/api/address/`, obj);
       const address = res.data;
       dispatch({ type: GET_ADDRESS, payload: address });
     } catch (errors) {
-      // console.error(errors.response.data);
+      console.error(errors.response.data);
     }
   };
 };

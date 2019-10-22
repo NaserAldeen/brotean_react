@@ -1,5 +1,4 @@
-export { getProducts } from "./products";
-export { getCategories } from "./products";
+export { getProducts, getCategories, getBrands } from "./products";
 export { getProduct } from "./product";
 export {
   authorization,

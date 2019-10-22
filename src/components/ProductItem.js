@@ -40,7 +40,7 @@ class ProductItem extends Component {
                   );
                 }}
               >
-                <a href="#">
+                <a>
                   <FontAwesomeIcon icon={faCartArrowDown} />
                 </a>
               </li>

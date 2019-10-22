@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_PRODUCTS, GET_CATEGORIES } from "./actionTypes";
+import { GET_PRODUCTS, GET_CATEGORIES, GET_BRANDS } from "./actionTypes";
 
 export const getProducts = () => {
   return async dispatch => {
@@ -26,6 +26,22 @@ export const getCategories = () => {
       dispatch({
         type: GET_CATEGORIES,
         payload: categories
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getBrands = () => {
+  return async dispatch => {
+    try {
+      const res = await axios.get("http://127.0.0.1:8000/api/brands/");
+      const brands = res.data;
+
+      dispatch({
+        type: GET_BRANDS,
+        payload: brands
       });
     } catch (err) {
       console.log(err);

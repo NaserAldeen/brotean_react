@@ -129,15 +129,25 @@ class Checkout extends React.Component {
       });
     }
     if (this.state.editedAddress) {
-      this.props.updateCreateAddress({
-        id: this.state.selectedAddress,
-        governate: this.state.governate,
-        area: this.state.area,
-        block: this.state.block,
-        street: this.state.street,
-        additional_address: this.state.additional_address,
-        phone_number: this.state.phone
-      });
+      if (this.state.selectedAddress == -1)
+        this.props.updateCreateAddress({
+          governate: this.state.governate,
+          area: this.state.area,
+          block: this.state.block,
+          street: this.state.street,
+          additional_address: this.state.additional_address,
+          phone_number: this.state.phone
+        });
+      else
+        this.props.updateCreateAddress({
+          id: this.state.selectedAddress,
+          governate: this.state.governate,
+          area: this.state.area,
+          block: this.state.block,
+          street: this.state.street,
+          additional_address: this.state.additional_address,
+          phone_number: this.state.phone
+        });
     }
 
     this.setState({
