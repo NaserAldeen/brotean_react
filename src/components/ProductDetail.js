@@ -12,9 +12,11 @@ class ProductDetail extends Component {
   state = {
     canAddToCart: true
   };
+
   componentDidMount() {
     this.props.getProduct(this.props.match.params.prodID);
   }
+
   componentWillUnmount() {
     this.props.resetProduct();
   }
@@ -37,11 +39,13 @@ class ProductDetail extends Component {
       this.props.showAlert("Added item successfully!");
     }
   };
+
   renderErrorsAfterClickingOnAddToCart() {
     if (!this.state.canAddToCart) {
       return "Not enough items in stock";
     }
   }
+
   render() {
     if (!this.props.currentProduct)
       return (
@@ -119,6 +123,7 @@ class ProductDetail extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     currentProduct: state.rootProduct.currentProduct,
@@ -126,9 +131,9 @@ const mapStateToProps = state => {
     user: state.rootAuth.user
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
-    //Syntax
     getProduct: id => dispatch(getProduct(id)),
     resetProduct: () => dispatch({ type: "RESET_PRODUCT" }),
     addItemToCart: (product_id, quantity) =>
@@ -136,6 +141,7 @@ const mapDispatchToProps = dispatch => {
     showAlert: content => dispatch(showAlert(content))
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

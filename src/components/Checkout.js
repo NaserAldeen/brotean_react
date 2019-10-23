@@ -435,7 +435,7 @@ class Checkout extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    profile: state.rootAuth.userProfile
+    profile: state.rootCart.userProfile
   };
 };
 const mapDispatchToProps = dispatch => {

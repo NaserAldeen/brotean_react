@@ -18,14 +18,15 @@ const OrderRow = ({ order, address, index }) => {
     "Nov",
     "Dec"
   ];
-  //   const days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Satur"];
+
   let timestamp = new Date(order.date);
-  //   const day = days[timestamp.getDay()];
+
   const date = timestamp.getDate();
   const month = months[timestamp.getMonth()];
   const year = timestamp.getFullYear();
   let hour = timestamp.getHours();
   let meridiem = "a.m.";
+
   if (hour > 12) {
     hour -= 12;
     meridiem = "p.m.";

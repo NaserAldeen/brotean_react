@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import ProductItem from "./ProductItem";
-
 import { connect } from "react-redux";
+
+//Components
+import ProductItem from "./ProductItem";
 import LoadingSpinner from "./LoadingSpinner";
 
 class ProductList extends Component {
@@ -27,10 +28,12 @@ class ProductList extends Component {
         products = products.filter(
           prod => prod.manufacturer == this.props.selectedBrand
         );
+
       if (this.props.selectedCategory)
         products = products.filter(
           prod => prod.category == this.props.selectedCategory
         );
+
       if (this.state.query)
         products = products.filter(
           prod =>
@@ -94,6 +97,7 @@ class ProductList extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     products: state.rootProducts.products,

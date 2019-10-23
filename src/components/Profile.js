@@ -6,13 +6,23 @@ import { Redirect } from "react-router-dom";
 import OrderHistory from "./OrderHistory";
 import AddressCard from "./AddressCard";
 import AddAddressCard from "./AddAddressCard";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Profile = props => {
-  if (!props.user) return <Redirect to="/login" />;
+  // if (!props.user) return <Redirect to="/login" />;
+
+  if (!props.profile)
+    return (
+      <div className="container mt-5 text-center justify-content-center w-100">
+        <LoadingSpinner />
+      </div>
+    );
+
   if (props.profile !== null) {
     const addressCard = props.profile.addresses.map((address, index) => (
       <AddressCard address={address} key={index} count={index + 1} />
     ));
+
     return (
       <div className="container my-5">
         <div className="jumbotron mx-3">
@@ -61,7 +71,7 @@ const Profile = props => {
 const mapStateToProps = state => {
   return {
     user: state.rootAuth.user,
-    profile: state.rootAuth.userProfile
+    profile: state.rootCart.userProfile
   };
 };
 

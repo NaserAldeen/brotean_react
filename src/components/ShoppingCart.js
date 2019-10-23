@@ -1,4 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { addItemToCart } from "../redux/actions";
+import { Link } from "react-router-dom";
+
+//Components
+import NavCartItem from "./NavCartItem";
 import {
   MDBBtn,
   MDBModal,
@@ -6,12 +14,7 @@ import {
   MDBModalHeader,
   MDBModalFooter
 } from "mdbreact";
-import { connect } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-import NavCartItem from "./NavCartItem";
-import { addItemToCart } from "../redux/actions";
-import { Link } from "react-router-dom";
+
 class ShoppingCart extends Component {
   state = {
     modal: false
@@ -44,7 +47,6 @@ class ShoppingCart extends Component {
 
     return (
       <>
-        {/* BUTTON */}
         <MDBBtn
           color="info"
           onClick={this.toggle}
@@ -70,7 +72,7 @@ class ShoppingCart extends Component {
           <FontAwesomeIcon icon={faShoppingBag} className="mr-2" />
           {this.props.cart[1]} KD
         </MDBBtn>
-        {/* MODAL */}
+
         <MDBModal
           isOpen={this.state.modal}
           toggle={this.toggle}
@@ -106,18 +108,21 @@ class ShoppingCart extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     cart: state.rootCart.cart,
     products: state.rootProducts.products
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     addItemToCart: (product_id, quantity) =>
       dispatch(addItemToCart(product_id, quantity))
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

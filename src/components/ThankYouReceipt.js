@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 export default class ThankYouReceipt extends Component {
   render() {
     return (
       <div className="container text-center" style={{ marginTop: "100px" }}>
         <h1>Thank you for your order 🙂</h1>
-        <p className="text-muted">Your order number is: #465467</p>
+        <p className="text-muted">
+          Your order number is: #{Math.floor(100000 + Math.random() * 900000)}
+        </p>
         <Link to="/profile">
           <button className="btn btn-primary btn-sm">View your orders</button>
         </Link>

@@ -36,7 +36,7 @@ export const getCart = () => {
 
       dispatch({
         type: GET_CART,
-        payload: [cart[0].cart_items, cart[0].total]
+        payload: cart.length ? [cart[0].cart_items, cart[0].total] : [[], 0]
       });
     } catch (err) {
       console.error(err);
@@ -50,10 +50,11 @@ export const checkout = address_id => {
       const res = await axios.post(`http://127.0.0.1:8000/api/checkout/`, {
         id: address_id
       });
-      // const cart = res.data;
+      const cart = res.data;
 
       dispatch({
-        type: CHECKOUT
+        type: CHECKOUT,
+        payload: cart
       });
     } catch (err) {
       console.error(err);

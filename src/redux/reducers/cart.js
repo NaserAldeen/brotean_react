@@ -1,14 +1,40 @@
-import { ADD_ITEM_CART, GET_CART, CHECKOUT } from "../actions/actionTypes";
+import {
+  ADD_ITEM_CART,
+  GET_CART,
+  CHECKOUT,
+  GET_USER_PROFILE,
+  GET_ADDRESS
+} from "../actions/actionTypes";
 const initialState = {
-  cart: [[], 0] //Array of two elemenets, [0] for cart items, [1] for total price (comes from backend)
+  cart: [[], 0], //Array of two elemenets, [0] for cart items, [1] for total price (comes from backend)
+  userProfile: null
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+    case GET_USER_PROFILE:
+      return { ...state, userProfile: payload };
+    case GET_ADDRESS:
+      const existingAddress = state.userProfile.addresses.find(
+        add => add.id == payload.id
+      );
+      if (existingAddress) {
+        state.userProfile.addresses = [
+          ...state.userProfile.addresses.map(add => {
+            if (add.id == payload.id) {
+              return payload;
+            }
+            return add;
+          })
+        ];
+      } else
+        state.userProfile.addresses = state.userProfile.addresses.concat(
+          payload
+        );
+      return { ...state, userProfile: { ...state.userProfile } };
     case ADD_ITEM_CART:
       if (payload.quantity === 0) {
         let newCart = state.cart[0].filter(item => {
-
           if (item.product_id) {
             return item.product_id != payload.item;
           } else if (item.item) {
@@ -19,7 +45,6 @@ export default (state = initialState, { type, payload }) => {
 
         newCart.forEach(item => {
           newTotal += item.quantity * item.price;
-
         });
 
         return {
@@ -46,12 +71,12 @@ export default (state = initialState, { type, payload }) => {
           newTotal += item.quantity * item.price;
         });
         return { ...state, cart: [[...newCartItems], newTotal] };
-
       }
     case GET_CART:
       return { ...state, cart: [...payload] };
     case CHECKOUT:
-      return { ...state, cart: [[], 0] };
+      state.userProfile.orders = [payload, ...state.userProfile.orders];
+      return { ...state, cart: [[], 0], userProfile: { ...state.userProfile } };
     default:
       return state;
   }

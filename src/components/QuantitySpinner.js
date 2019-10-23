@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 class QuantitySpinner extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
     this.props.setSpinnerValue(e.target.value);
   }
+
   componentWillUnmount() {
     this.props.setSpinnerValue(1);
   }
+
   render() {
     return (
       <div
@@ -27,16 +30,19 @@ class QuantitySpinner extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     number: state.UI.spinnerCount
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     setSpinnerValue: value => dispatch({ type: "SET_SPINNER", payload: value })
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

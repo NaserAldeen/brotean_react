@@ -12,7 +12,6 @@ import { getCart } from "./redux/actions/cart";
 
 //Components
 import Profile from "./components/Profile";
-import RegistationForm from "./components/RegistrationForm";
 import Checkout from "./components/Checkout";
 import CategoriesList from "./components/CategoriesList";
 import Navbar from "./components/Navbar";
@@ -78,7 +77,7 @@ class App extends Component {
           <Route path="/profile/" component={Profile} />
           <Route path="/products/:prodID" component={ProductDetail} />
           <Route path="/products/" component={ProductList} />
-          <Route path="/(login|register)" component={RegistationForm} />
+          {/* <Route path="/(login|register)" component={LoginTest} /> */}
           <Route path="/checkout" component={Checkout} />
           <Route path="/categories" component={CategoriesList} />
           <Route path="/order-complete" component={ThankYouReceipt} />

@@ -6,6 +6,8 @@ import { logout } from "../redux/actions";
 import ShoppingCart from "./ShoppingCart";
 import CategoriesDropdown from "./CategoriesDropdown";
 import BrandsDropdown from "./BrandsDropdown";
+import Authentication from "./Authentication";
+
 class Navbar extends Component {
   render() {
     return (
@@ -50,9 +52,7 @@ class Navbar extends Component {
 
             {!this.props.user ? (
               <div className="nav-item">
-                <Link to="/login">
-                  <span className="nav-link">Login</span>
-                </Link>
+                <Authentication />
               </div>
             ) : (
               <div className="nav-item dropdown mr-3">

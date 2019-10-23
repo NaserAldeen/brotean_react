@@ -9,7 +9,6 @@ import { showAlert } from "../redux/actions/alerts";
 //Add more stuff to the product cart (maybe manufacturer)
 
 class ProductItem extends Component {
-  handlePress(e) {}
   render() {
     return (
       <div className="col-md-3 col-sm-6 mb-4">
@@ -22,7 +21,7 @@ class ProductItem extends Component {
         >
           <div className="product-image3">
             <Link to={`products/${this.props.product.id}`}>
-              <span onClick={() => this.handlePress()}>
+              <span>
                 <img className="pic-1" alt="" src={this.props.product.image} />
                 <img className="pic-2" alt="" src={this.props.product.image} />
               </span>
@@ -67,11 +66,13 @@ class ProductItem extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     user: state.rootAuth.user
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     addItemToCart: (product_id, quantity) =>
@@ -79,6 +80,7 @@ const mapDispatchToProps = dispatch => {
     alert: content => dispatch(showAlert(content))
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

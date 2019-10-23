@@ -4,9 +4,17 @@ import React from "react";
 import OrderRow from "./OrderRow";
 
 const OrderHistory = ({ orders }) => {
-  const orderRows = orders.map((order, index) => (
-    <OrderRow key={index} index={index} order={order} address={order.address} />
-  ));
+  const orderRows = orders.map((order, index) => {
+    console.log(order.address);
+    return (
+      <OrderRow
+        key={index}
+        index={index}
+        order={order}
+        address={order.address}
+      />
+    );
+  });
   return (
     <div>
       <h5 className="text-center mt-3">Order History</h5>
