@@ -14,29 +14,14 @@ class Navbar extends Component {
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <Link to="/">
-            <span
-              className="navbar-brand"
-              onClick={() => {
-                this.props.resetCategory("");
-                this.props.resetBrand("");
-              }}
-              v
-            >
-              Brotean
-            </span>
+            <span className="navbar-brand">Brotean</span>
           </Link>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <Link to="/">
-                  <span
-                    className="nav-link"
-                    onClick={() => {
-                      this.props.resetCategory("");
-                      this.props.resetBrand("");
-                    }}
-                  >
+                  <span className="nav-link">
                     Home <span className="sr-only">(current)</span>
                   </span>
                 </Link>
@@ -110,9 +95,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout()),
-    resetCategory: cat => dispatch({ type: "SET_CATEGORY", payload: cat }),
-    resetBrand: brand => dispatch({ type: "SET_BRAND", payload: brand })
+    logout: () => dispatch(logout())
   };
 };
 
