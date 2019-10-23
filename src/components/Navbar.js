@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../redux/actions";
 import ShoppingCart from "./ShoppingCart";
-import CategoriesDropdown from "./CategoriesDropdown";
-import BrandsDropdown from "./BrandsDropdown";
 import Authentication from "./Authentication";
 
 class Navbar extends Component {
@@ -25,13 +23,6 @@ class Navbar extends Component {
                     Home <span className="sr-only">(current)</span>
                   </span>
                 </Link>
-              </li>
-
-              <li className="nav-item dropdown">
-                <CategoriesDropdown />
-              </li>
-              <li className="nav-item dropdown">
-                <BrandsDropdown />
               </li>
             </ul>
 

@@ -11,3 +11,5 @@ export const CHECKOUT = "CHECKOUT";
 export const GET_CATEGORIES = "GET_CATEGORIES";
 export const GET_ADDRESS = "GET_ADDRESS";
 export const GET_BRANDS = "GET_BRANDS";
+
+export const DEL_ADDRESS = "DEL_ADDRESS";

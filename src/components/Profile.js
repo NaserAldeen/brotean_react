@@ -7,6 +7,7 @@ import OrderHistory from "./OrderHistory";
 import AddressCard from "./AddressCard";
 import AddAddressCard from "./AddAddressCard";
 import LoadingSpinner from "./LoadingSpinner";
+import ProfileModal from "./ProfileModal";
 
 const Profile = props => {
   // if (!props.user) return <Redirect to="/login" />;
@@ -51,7 +52,8 @@ const Profile = props => {
             <b>Bio: </b>
             <p>{props.profile.bio}</p>
           </div>
-
+          <br />
+          <ProfileModal profile={props.profile} />
           <hr />
           <h4 className="my-4">Addresses:</h4>
           <div className="row mb-5">

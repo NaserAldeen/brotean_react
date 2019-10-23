@@ -5,7 +5,8 @@ import {
   SET_CURRENT_USER,
   GET_CART,
   GET_USER_PROFILE,
-  GET_ADDRESS
+  GET_ADDRESS,
+  DEL_ADDRESS
 } from "./actionTypes";
 import { getCart } from "./cart";
 // import { setErrors } from "./errors";
@@ -101,6 +102,22 @@ export const updateCreateAddress = obj => {
       const res = await axios.post(`http://127.0.0.1:8000/api/address/`, obj);
       const address = res.data;
       dispatch({ type: GET_ADDRESS, payload: address });
+    } catch (errors) {
+      // console.error(errors.response.data);
+    }
+  };
+};
+
+export const deleteAddress = obj_id => {
+  return async dispatch => {
+    try {
+      const body = { id: obj_id };
+      console.log(body);
+      const res = await axios.delete(`http://127.0.0.1:8000/api/address/`, {
+        data: { id: obj_id }
+      });
+
+      dispatch({ type: DEL_ADDRESS });
     } catch (errors) {
       // console.error(errors.response.data);
     }

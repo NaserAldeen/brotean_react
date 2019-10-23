@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Modal from "react-responsive-modal";
-
+import { connect } from "react-redux";
 // Components
 import AddressForm from "./AddressForm";
+import { deleteAddress } from "../redux/actions";
 
 class AddressCard extends Component {
   state = {
@@ -44,7 +45,10 @@ class AddressCard extends Component {
               <span
                 className="card-link pointer"
                 style={{ color: "blue", textDecoration: "underline" }}
-                onClick={() => this.setState({ deleted: true })}
+                onClick={() => {
+                  this.setState({ deleted: true });
+                  this.props.deleteAddress(address.id);
+                }}
               >
                 Delete
               </span>
@@ -58,4 +62,13 @@ class AddressCard extends Component {
   }
 }
 
-export default AddressCard;
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteAddress: id => dispatch(deleteAddress(id))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddressCard);

@@ -5,7 +5,8 @@ export {
   checkForExpiredToken,
   logout,
   updateProfile,
-  updateCreateAddress
+  updateCreateAddress,
+  deleteAddress
 } from "./authentication";
 export { addItemToCart } from "./cart";
 export { checkout } from "./cart";

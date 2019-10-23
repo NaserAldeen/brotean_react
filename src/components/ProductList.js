@@ -118,7 +118,7 @@ class ProductList extends Component {
       <div className="mt-5" style={{ fontFamily: "Ubuntu, sans-serif" }}>
         <div className="row">
           <div
-            className="col-2 rounded mt-5 ml-1"
+            className="col-2 rounded mt-5 ml-4"
             style={{
               padding: 0
             }}
@@ -152,15 +152,12 @@ class ProductList extends Component {
                   <div className="d-flex justify-content-center h-100">
                     <div className="searchbar">
                       <input
-                        className="search_input"
+                        className="search_input text-light"
                         type="text"
                         name=""
                         placeholder="Search for products.."
                         onChange={this.handleSearch}
                       />
-                      <a href="#" className="search_icon">
-                        <i className="fas fa-search"></i>
-                      </a>
                     </div>
                   </div>
                 </div>

@@ -15,7 +15,15 @@ export default class AddAddressCard extends Component {
 
   render() {
     return (
-      <div className="col mb-3">
+      <div
+        className="col mb-3"
+        style={{
+          minWidth: "317px",
+          maxWidth: "317px",
+          minHeight: "220px",
+          maxHeight: "220px"
+        }}
+      >
         <div>
           <Modal open={this.state.open} onClose={this.onCloseModal} center>
             <AddressForm
@@ -37,7 +45,7 @@ export default class AddAddressCard extends Component {
               className="card-img-top img-fluid"
               src="https://mbtskoudsalg.com/images/a-plus-png-2.png"
               alt="+"
-              style={{ maxWidth: "150px" }}
+              style={{ maxWidth: "50px" }}
             />
           </div>
         </div>

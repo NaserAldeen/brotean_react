@@ -6,8 +6,6 @@ import { connect } from "react-redux";
 import { addItemToCart } from "../redux/actions";
 import { showAlert } from "../redux/actions/alerts";
 
-//Add more stuff to the product cart (maybe manufacturer)
-
 class ProductItem extends Component {
   render() {
     return (
@@ -33,10 +31,14 @@ class ProductItem extends Component {
                     this.props.alert("Login to add items to your cart");
                     return;
                   }
-                  this.props.addItemToCart(this.props.product.id, 1);
-                  this.props.alert(
-                    `Added ${this.props.product.name} to your cart!`
-                  );
+                  if (this.props.product.quantity > 0) {
+                    this.props.addItemToCart(this.props.product.id, 1);
+                    this.props.alert(
+                      `Added ${this.props.product.name} to your cart!`
+                    );
+                  } else {
+                    this.props.alert(`This item is out of stock`);
+                  }
                 }}
               >
                 <a>

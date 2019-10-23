@@ -7,7 +7,7 @@ class AddressForm extends Component {
     ...this.props.address
   };
 
-  submitAuthor = event => {
+  submitAddress = event => {
     event.preventDefault();
     this.props.updateCreateAddress(this.state);
     this.props.onClose();
@@ -20,7 +20,7 @@ class AddressForm extends Component {
   render() {
     return (
       <div className="mt-5 p-2">
-        <form onSubmit={this.submitAuthor}>
+        <form onSubmit={this.submitAddress}>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text">Governate</span>
